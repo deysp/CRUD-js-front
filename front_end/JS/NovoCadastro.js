@@ -17,12 +17,30 @@ const main = document.getElementById('main');
 document.querySelector("#botaologin").addEventListener("click", async (event) => {
     event.preventDefault() // impede o envio do formulário
 
-    const usuario = document.querySelector("#usuario").value;
+    const email = document.querySelector("#email").value;
     const senha = document.querySelector("#senha").value;
     
-    console.log(usuario, senha)
-    if (usuario != '' && senha != '') {
-       
+
+    if (usuario === '' && senha === '') {
+         alert('Preencha todos os campos!', 'warning');
+         return;
+    }
+     const usuarioRegex = /^[a-zA-Z0-9_]{3,15}$/; // Entre 3 e 15 caracteres, letras, números ou "_"
+    const senhaRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{6,8}$/; // Entre 6 e 8 caracteres, 1 maiúscula, 1 minúscula, 1 número e 1 caractere especial
+
+   
+    if (!senhaRegex.test(senha)) {
+        alert("A senha  deve ter entre 6 e 8 caracteres");
+        return;
+    }
+
+    if (!usuarioRegex.test(usuario)) {
+        alert("O usuário Deve ter entre 3 e 15 caracteres");
+        return;
+    } 
+    
+    
+    
         try {
             const response = await fetch(`http://localhost:3000/login`,{
                 method: "POST",
@@ -30,7 +48,7 @@ document.querySelector("#botaologin").addEventListener("click", async (event) =>
                     'Content-Type' : 'application/json'
                 },
                 body : JSON.stringify({
-                    usuario : usuario,
+                    email : email,
                     senha : senha
                 })
             });
@@ -60,14 +78,14 @@ document.querySelector("#botaologin").addEventListener("click", async (event) =>
             console.error('Erro ao fazer login:', error);
             alert('Erro ao tentar fazer login. Tente novamente mais tarde.', 'danger');
         }
-    } else {
-        alert('Preencha todos os campos!', 'warning');
-    }
+    
 });
 
+
+
+
+
 // cadastro
-
-
 document.querySelector("#cadastrar").addEventListener("click", async (event) => {
     event.preventDefault();
 
