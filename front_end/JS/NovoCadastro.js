@@ -1,4 +1,4 @@
-// Código para a transição de telas
+    // Código para a transição de telas
 const signUpButton = document.getElementById('signUp');
 const signInButton = document.getElementById('signIn');
 const main = document.getElementById('main');
@@ -17,12 +17,30 @@ const main = document.getElementById('main');
 document.querySelector("#botaologin").addEventListener("click", async (event) => {
     event.preventDefault() // impede o envio do formulário
 
-    const usuario = document.querySelector("#usuario").value;
+    const email = document.querySelector("#email").value;
     const senha = document.querySelector("#senha").value;
     
-    console.log(usuario, senha)
-    if (usuario != '' && senha != '') {
-       
+
+    if (email === '' && senha === '') {
+         alert('Preencha todos os campos!', 'warning');
+         return;
+    }
+     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/ // Entre 3 e 15 caracteres, letras, números ou "_"
+    const senhaRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{6,8}$/; // Entre 6 e 8 caracteres, 1 maiúscula, 1 minúscula, 1 número e 1 caractere especial
+
+   
+    if (!senhaRegex.test(senha)) {
+        alert("A senha  deve ter entre 6 e 8 caracteres");
+        return;
+    }
+
+    if (!emailRegex.test(usuario)) {
+        alert("O usuário Deve ter entre 3 e 15 caracteres");
+        return;
+    } 
+    
+    
+    
         try {
             const response = await fetch(`http://localhost:3000/login`,{
                 method: "POST",
@@ -30,7 +48,7 @@ document.querySelector("#botaologin").addEventListener("click", async (event) =>
                     'Content-Type' : 'application/json'
                 },
                 body : JSON.stringify({
-                    usuario : usuario,
+                    email : email,
                     senha : senha
                 })
             });
@@ -60,49 +78,54 @@ document.querySelector("#botaologin").addEventListener("click", async (event) =>
             console.error('Erro ao fazer login:', error);
             alert('Erro ao tentar fazer login. Tente novamente mais tarde.', 'danger');
         }
-    } else {
-        alert('Preencha todos os campos!', 'warning');
-    }
+    
 });
+
+
+
+
 
 // cadastro
 document.querySelector("#cadastrar").addEventListener("click", async (event) => {
-      event.preventDefault();
-    
-      const usuario = document.querySelector("#usuario1").value;
-      const senha = document.querySelector("#senha1").value;
-      const senhaConfirmacao= document.querySelector("#senhaConfirmacao").value;
-    
-      if (senha !== senhaConfirmacao) {
-          alert('As senhas não se coincidem')
-      }
-    
-      try {
-          const response = await fetch('http://localhost:3000/usuario',{
-              method: "POST",
-              headers: {
-                  "Content-Type": "application/json" // Adiciona o cabeçalho correto
-              },
-              body: JSON.stringify({
-          
-                  usuario: usuario,
-                  senha: senha
-                  
-              })
-          })
-    
-          if (response.ok) {
-              alert("Cadastro realizado com sucesso!", "success");
-          } else {
-              const data = await response.json();
-              alert(data.error || "Erro ao realizar cadastro.", "danger");
-          }
-           if(usuario == '' && senha == ''){
-            
-           }
-      } 
-      catch (error) {
-  
-          alert("Erro ao tentar cadastrar. Tente novamente mais tarde.", "danger");
-      }
-    });
+    event.preventDefault();
+
+    const usuario = document.querySelector("#usuario1").value.trim();
+    const senha = document.querySelector("#senha1").value.trim();
+    const senhaConfirmacao = document.querySelector("#senhaConfirmacao").value.trim();
+
+    // Validação dos campos
+    if (!usuario || !senha || !senhaConfirmacao) {
+        alert("Preencha todos os campos!");
+        return;
+    }
+
+    if (senha !== senhaConfirmacao) {
+        alert("As senhas não coincidem.");
+        return;
+    }
+
+    if (senha.length > 8 || senhaConfirmacao.length > 8) {
+        alert("As senhas devem ter no máximo 8 caracteres");
+        return;
+    }
+
+    try {
+        const response = await fetch('http://localhost:3000/usuario', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ usuario, senha })
+        });
+
+        if (response.ok) {
+            alert("Cadastro realizado com sucesso!");
+        } else {
+            const data = await response.json();
+            alert(data.error || "Erro ao realizar cadastro.");
+        }
+    } catch (error) {
+        console.error(error);
+        alert("Erro ao tentar cadastrar. Tente novamente mais tarde.");
+    }
+});
