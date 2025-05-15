@@ -3,13 +3,12 @@ const botao = document.querySelector('#cadastrar')
 botao.addEventListener('click', async function(event){
     event.preventDefault(); // Impede o envio do formulário
   
-  const pergunta = document.querySelector('#pergunta').value;
-  const a = document.querySelector('#a').value;
-  const b = document.querySelector('#b').value;
-  const c = document.querySelector('#c').value;
-  const d = document.querySelector('#d').value;
-  const dificuldade = document.querySelector('input[name="dificuldade"]:checked').value;
-  const correct_answer = document.querySelector('#correta').value;
+  const enunciado = document.querySelector('#enunciado').value;
+  const alternativa_a = document.querySelector('#alternativa_a').value;
+  const alternativa_b = document.querySelector('#alternativa_b').value;
+  const alternativa_c = document.querySelector('#alternativa_c').value;
+  const alternativa_d = document.querySelector('#alternativa_d').value;
+  const correta = document.querySelector('#correta').value;
   
 
   const res = await fetch('http://localhost:3000/Cperguntas',{
@@ -19,13 +18,13 @@ botao.addEventListener('click', async function(event){
           "Content-Type": "application/json" // Adiciona o cabeçalho correto
       },
       body: JSON.stringify({
-          pergunta: pergunta,
-          a: a,
-          b: b,
-          c: c,
-          d: d,
-          dificuldade: dificuldade,
-          correct_answer: correct_answer            
+          enunciado: enunciado,
+          alternativa_a: alternativa_a,
+          alternativa_b: alternativa_b,
+          alternativa_c: alternativa_c,
+          alternativa_d: alternativa_d,
+          correta: correta,
+               
       })
   });
   
@@ -102,7 +101,7 @@ deleteButton.innerText = "Excluir";
 deleteButton.classList.add("delete-button");
 deleteButton.addEventListener("click", async () => {
   try {
-    const response = await fetch(`http://localhost:3000/Delete/${questao.id}`, {
+    const response = await fetch(`http://localhost:3000/Delete/${id_pergunta}`, {
       method: "DELETE",
   
     });
@@ -127,7 +126,7 @@ editbutton.addEventListener("click", async () => {})
   
 
   try {
-    const response = await fetch(`http://localhost:3000/Delete/${questao.id}`,{
+    const response = await fetch(`http://localhost:3000/Delete/${id_pergunta}`,{
       method: "PUT",})
     
 
