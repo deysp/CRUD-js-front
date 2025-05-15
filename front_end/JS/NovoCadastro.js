@@ -21,11 +21,11 @@ document.querySelector("#botaologin").addEventListener("click", async (event) =>
     const senha = document.querySelector("#senha").value;
     
 
-    if (usuario === '' && senha === '') {
+    if (email === '' && senha === '') {
          alert('Preencha todos os campos!', 'warning');
          return;
     }
-     const usuarioRegex = /^[a-zA-Z0-9_]{3,15}$/; // Entre 3 e 15 caracteres, letras, números ou "_"
+     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/ // Entre 3 e 15 caracteres, letras, números ou "_"
     const senhaRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{6,8}$/; // Entre 6 e 8 caracteres, 1 maiúscula, 1 minúscula, 1 número e 1 caractere especial
 
    
@@ -34,7 +34,7 @@ document.querySelector("#botaologin").addEventListener("click", async (event) =>
         return;
     }
 
-    if (!usuarioRegex.test(usuario)) {
+    if (!emailRegex.test(usuario)) {
         alert("O usuário Deve ter entre 3 e 15 caracteres");
         return;
     } 
