@@ -77,7 +77,7 @@ botao.addEventListener('click', async function(event){
     // Título da pergunta
     const questionTitle = document.createElement("h3");
     questionTitle.classList.add("card-title");
-    questionTitle.innerText = `Pergunta: ${questao.pergunta}`;
+    questionTitle.innerText = `Pergunta: ${questao.enunciado}`;
 
     // Alternativas
     const alternatives = document.createElement("ul");
@@ -92,7 +92,7 @@ botao.addEventListener('click', async function(event){
     // Resposta correta
     const correctAnswer = document.createElement("p");
     correctAnswer.classList.add("card-correct-answer");
-    correctAnswer.innerText = `Resposta correta: ${questao.correct_answer}`;
+    correctAnswer.innerText = `Resposta correta: ${questao.correta}`;
 
 
     //* Botão de deletar
