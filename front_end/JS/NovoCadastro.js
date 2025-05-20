@@ -26,23 +26,23 @@ document.querySelector("#botaologin").addEventListener("click", async (event) =>
          return;
     }
      const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/ // Entre 3 e 15 caracteres, letras, números ou "_"
-    const senhaRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{6,8}$/; // Entre 6 e 8 caracteres, 1 maiúscula, 1 minúscula, 1 número e 1 caractere especial
+    const senhaRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{3,9}$/; // Entre 6 e 8 caracteres, 1 maiúscula, 1 minúscula, 1 número e 1 caractere especial
 
    
     if (!senhaRegex.test(senha)) {
-        alert("A senha  deve ter entre 6 e 8 caracteres");
+        alert("A senha  deve ter entre 3 e 8 caracteres");
         return;
     }
 
     if (!emailRegex.test(email)) {
-        alert("O usuário Deve ter entre 3 e 15 caracteres");
+        alert("O email Deve ter entre 3 e 15 caracteres");
         return;
     } 
     
     
     
         try {
-            const response = await fetch(`http://localhost:3000/login`,{
+            const response = await fetch(`http://192.168.1.4:3000/login`,{
                 method: "POST",
                 headers: {
                     'Content-Type' : 'application/json'
@@ -56,11 +56,11 @@ document.querySelector("#botaologin").addEventListener("click", async (event) =>
 
             if (response.status == 200) {
 
-                console.log(data.status)
+                console.log(data.funcao)
 
 
-                  if (data.status === "professor") {
-                  
+                  if (data.funcao === 'professor') {
+                  console.log('Aluno logado com sucesso');
                     // Redireciona para a página do administrador
                     alert('Bem-vindo, professor!');
                     window.location.replace('../HTML/Admin.html');
@@ -73,7 +73,7 @@ document.querySelector("#botaologin").addEventListener("click", async (event) =>
             else {
                 alert('Usuário ou senha incorretos!', 'danger');
             }
-          
+        
         } catch (error) {
             console.error('Erro ao fazer login:', error);
             alert('Erro ao tentar fazer login. Tente novamente mais tarde.', 'danger');
@@ -89,12 +89,12 @@ document.querySelector("#botaologin").addEventListener("click", async (event) =>
 document.querySelector("#cadastrar").addEventListener("click", async (event) => {
     event.preventDefault();
 
-    const usuario = document.querySelector("#usuario1").value.trim();
+    const email = document.querySelector("#usuario1").value.trim();
     const senha = document.querySelector("#senha1").value.trim();
     const senhaConfirmacao = document.querySelector("#senhaConfirmacao").value.trim();
 
     // Validação dos campos
-    if (!usuario || !senha || !senhaConfirmacao) {
+    if (!email || !senha || !senhaConfirmacao) {
         alert("Preencha todos os campos!");
         return;
     }
@@ -110,12 +110,12 @@ document.querySelector("#cadastrar").addEventListener("click", async (event) => 
     }
 
     try {
-        const response = await fetch('http://localhost:3000/usuario', {
+        const response = await fetch('http://192.168.1.4:3000/usuario', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ usuario, senha })
+            body: JSON.stringify({ email, senha })
         });
 
         if (response.ok) {
