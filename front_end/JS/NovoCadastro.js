@@ -59,10 +59,10 @@ document.querySelector("#botaologin").addEventListener("click", async (event) =>
                 console.log(data.status)
 
 
-                  if (data.status === "adimim") {
+                  if (data.status === "professor") {
                   
                     // Redireciona para a página do administrador
-                    alert('Bem-vindo, administrador!');
+                    alert('Bem-vindo, professor!');
                     window.location.replace('../HTML/Admin.html');
                 } else {
                     // Redireciona para a página do aluno
