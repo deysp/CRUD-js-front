@@ -34,7 +34,7 @@ document.querySelector("#botaologin").addEventListener("click", async (event) =>
         return;
     }
 
-    if (!emailRegex.test(usuario)) {
+    if (!emailRegex.test(email)) {
         alert("O usuário Deve ter entre 3 e 15 caracteres");
         return;
     } 
