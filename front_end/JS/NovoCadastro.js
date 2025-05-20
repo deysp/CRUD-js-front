@@ -41,8 +41,8 @@ document.querySelector("#botaologin").addEventListener("click", async (event) =>
     
     
     
-        try {
-            const response = await fetch(`http://192.168.1.4:3000/login`,{
+          try {
+            const response = await fetch(`http://localhost:3000/login`,{
                 method: "POST",
                 headers: {
                     'Content-Type' : 'application/json'
@@ -53,14 +53,14 @@ document.querySelector("#botaologin").addEventListener("click", async (event) =>
                 })
             });
             const data = await response.json();
-
+console.log(data)
             if (response.status == 200) {
 
-                console.log(data.funcao)
+                console.log(data)
 
 
-                  if (data.funcao === 'professor') {
-                  console.log('Aluno logado com sucesso');
+                  if (data === 'professor') {
+            
                     // Redireciona para a página do administrador
                     alert('Bem-vindo, professor!');
                     window.location.replace('../HTML/Admin.html');
@@ -73,7 +73,7 @@ document.querySelector("#botaologin").addEventListener("click", async (event) =>
             else {
                 alert('Usuário ou senha incorretos!', 'danger');
             }
-        
+          
         } catch (error) {
             console.error('Erro ao fazer login:', error);
             alert('Erro ao tentar fazer login. Tente novamente mais tarde.', 'danger');
