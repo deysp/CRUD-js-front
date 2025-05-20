@@ -22,7 +22,7 @@
       <form method="post">
         <div class="doistercos">
           Pergunta:
-          <input type="text" name="pergunta" id="pergunta" /><br/> <!--  ADICIONEI id="pergunta" -->
+          <input type="text" name="pergunta" id="enunciado" maxlength="200" /><br/> <!--  ADICIONEI id="pergunta" -->
 
           <p>Nível da Pergunta:</p>
           <div id="alter">
@@ -42,15 +42,11 @@
           
           Alternativas:    
           <section id="conteudo"><br>
-            <input type="text" name="alternativas" id="a" size="40"/><br> <!--  ALTEREI id de opcaoa → a -->
-            <input type="text" name="alternativas" id="b" size="40"/><br> <!--  ALTEREI id de opcaob → b -->
-            <input type="text" name="alternativas" id="c" size="40"/><br> <!--  ALTEREI id de opcaoC → c -->
-            <input type="text" name="alternativas" id="d" size="40"/><br> <!--  ALTEREI id de opcaoD → d -->
+            <input type="text" name="alternativas" id="alternativa_a" size="40" maxlength="100"/><br> <!--  ALTEREI id de opcaoa → a -->
+            <input type="text" name="alternativas" id="alternativa_b" size="40" maxlength="100"/><br> <!--  ALTEREI id de opcaob → b -->
+            <input type="text" name="alternativas" id="alternativa_c" size="40" maxlength="100"/><br> <!--  ALTEREI id de opcaoC → c -->
+            <input type="text" name="alternativas" id="alternativa_d" size="40" maxlength="100"/><br> <!--  ALTEREI id de opcaoD → d -->
           </section>
-
-          
-          <label for="correta">Alternativa correta:</label><br> <!--  ADICIONEI CAMPO NOVO -->
-          <input type="text" id="correta" name="correta" maxlength="1"/><br>
 
         </div>
 
