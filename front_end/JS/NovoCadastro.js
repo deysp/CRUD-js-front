@@ -42,7 +42,7 @@ document.querySelector("#botaologin").addEventListener("click", async (event) =>
     
     
         try {
-            const response = await fetch(`http://localhost:3000/login`,{
+            const response = await fetch(`http://192.168.1.4:3000/login`,{
                 method: "POST",
                 headers: {
                     'Content-Type' : 'application/json'
@@ -59,8 +59,8 @@ document.querySelector("#botaologin").addEventListener("click", async (event) =>
                 console.log(data.status)
 
 
-                  if (data.status === "adimim") {
-                  
+                    if (data.status === "adimim") {
+                
                     // Redireciona para a página do administrador
                     alert('Bem-vindo, administrador!');
                     window.location.replace('../HTML/Admin.html');
@@ -73,7 +73,7 @@ document.querySelector("#botaologin").addEventListener("click", async (event) =>
             else {
                 alert('Usuário ou senha incorretos!', 'danger');
             }
-          
+        
         } catch (error) {
             console.error('Erro ao fazer login:', error);
             alert('Erro ao tentar fazer login. Tente novamente mais tarde.', 'danger');
@@ -110,12 +110,12 @@ document.querySelector("#cadastrar").addEventListener("click", async (event) => 
     }
 
     try {
-        const response = await fetch('http://localhost:3000/usuario', {
+        const response = await fetch('http://192.168.1.4:3000/usuario', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ usuario, senha })
+            body: JSON.stringify({ email, senha })
         });
 
         if (response.ok) {

@@ -12,8 +12,7 @@ botao.addEventListener('click', async function(event){
   const correct_answer = document.querySelector('#correta').value;
   
 
-  const res = await fetch('http://localhost:3000/Cperguntas',{
-
+  const res = await fetch('http://192.168.1.9:3000/Cperguntas',{
       method: "POST",
       headers: {
           "Content-Type": "application/json" // Adiciona o cabeçalho correto
@@ -44,7 +43,7 @@ botao.addEventListener('click', async function(event){
     questionList.innerHTML = ""; // Limpa a lista antes de carregar
 
     try {
-        const response = await fetch("http://localhost:3000/Aperguntas");
+        const response = await fetch("http://192.168.1.9:3000/Bperguntas");
         const questions = await response.json();
 
         // console.log(questions); // Apenas para garantir que estamos recebendo as perguntas
@@ -60,7 +59,7 @@ botao.addEventListener('click', async function(event){
     }
 }
 
-   async function addQuestionToPage(questao) {
+    async function addQuestionToPage(questao) {
     const questionList = document.getElementById("questionList");
 
     // Cria o card
@@ -102,7 +101,7 @@ deleteButton.innerText = "Excluir";
 deleteButton.classList.add("delete-button");
 deleteButton.addEventListener("click", async () => {
   try {
-    const response = await fetch(`http://localhost:3000/Delete/${questao.id}`, {
+    const response = await fetch(`http://192.168.1.9:3000/Delete/${questao.id}`, {
       method: "DELETE",
   
     });
@@ -117,38 +116,54 @@ deleteButton.addEventListener("click", async () => {
   }
 });
 
-// 
 // !MODAL!
+const editButton = document.createElement("button");
+editButton.innerText = "Editar";
+editButton.classList.add("edit-button");
 
-const editbutton = document.createElement("button");
-editbutton.innerText = "Excluir";
-editbutton.classList.add("delete-button");
-editbutton.addEventListener("click", async () => {})
-  
-
+// Adiciona o evento de clique ao botão de editar
+editButton.addEventListener("click", async () => {
   try {
-    const response = await fetch(`http://localhost:3000/Delete/${questao.id}`,{
-      method: "PUT",})
-    
+    const response = await fetch(`http://192.168.1.9:3000/editar/${questao.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        newEnunciado : "newEnunciado",
+        alternativa_a : "alternativa_a",
+        alternativa_c : "alternativa_c",
+        alternativa_d : "alternativa_d",
+        correta: "correta"
+      })
+    });
 
-const openButtons = document.querySelectorAll('.open-modal');
-openButtons.forEach((button) => { //pega qual dos botões foram selecionados da class .open-modal
+    if (response.ok) {
+      console.log("Questão editada com sucesso!");
+    } else {
+      console.error("Erro ao editar a questão.");
+    }
+  } catch (error) {
+    console.error("Erro na requisição:", error);
+  }
+});
 
-  button.addEventListener("click", () => { //arrow function pegar algo - no caso clique do botão
-    const modalId = button.getAttribute("data-modal"); //especificar qual ATRIBUTO - data-modal foi pego 
-    const modal = document.getElementById(modalId); //especificar qual elemento por ID foi pego 
-    modal.showModal(); //show ou showModal
+// adiciona eventos para abrir modais
+const openButtons = document.querySelectorAll(".open-modal");
 
+openButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    const modalId = button.getAttribute("data-modal");
+    const modal = document.getElementById(modalId);
+    if (modal) {
+      modal.showModal();
+    }
   });
 });
-  }
-
-catch{}
 
 // Monta o card
-card.append(questionTitle,  hiddenIdInput,  alternatives, correctAnswer, deleteButton);
+card.append(questionTitle,  hiddenIdInput,  alternatives, correctAnswer, deleteButton, editButton, openButtons);
 
     // Adiciona o card ao contêiner de perguntas
     questionList.appendChild(card);
-   
   }
