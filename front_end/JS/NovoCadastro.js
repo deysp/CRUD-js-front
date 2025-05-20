@@ -59,15 +59,15 @@ document.querySelector("#botaologin").addEventListener("click", async (event) =>
                 console.log(data.funcao)
 
 
-                  if (data.funcao === 'aluno') {
+                  if (data.funcao === 'professor') {
                   console.log('Aluno logado com sucesso');
                     // Redireciona para a página do administrador
-                    alert('Bem-vindo, aluno!');
-                    window.location.replace('../HTML/Quizzz.html');
-                } else {
-                    // Redireciona para a página do aluno
                     alert('Bem-vindo, professor!');
                     window.location.replace('../HTML/Admin.html');
+                } else {
+                    // Redireciona para a página do aluno
+                    alert('Bem-vindo, aluno!');
+                    window.location.replace('../HTML/Quizzz.html');
                 }
             } 
             else {
