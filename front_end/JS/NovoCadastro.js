@@ -53,14 +53,14 @@ document.querySelector("#botaologin").addEventListener("click", async (event) =>
                 })
             });
             const data = await response.json();
-
+console.log(data)
             if (response.status == 200) {
 
-                console.log(data.funcao)
+                console.log(data)
 
 
-                  if (data.funcao === 'professor') {
-                  console.log('Aluno logado com sucesso');
+                  if (data === 'professor') {
+            
                     // Redireciona para a página do administrador
                     alert('Bem-vindo, professor!');
                     window.location.replace('../HTML/Admin.html');
