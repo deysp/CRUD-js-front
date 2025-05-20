@@ -26,7 +26,7 @@ document.querySelector("#botaologin").addEventListener("click", async (event) =>
          return;
     }
      const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/ // Entre 3 e 15 caracteres, letras, números ou "_"
-    const senhaRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{3,8}$/; // Entre 3 e 8 caracteres, 1 maiúscula, 1 minúscula, 1 número e 1 caractere especial
+    const senhaRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{3,9}$/; // Entre 3 e 8 caracteres, 1 maiúscula, 1 minúscula, 1 número e 1 caractere especial
 
    
     if (!senhaRegex.test(senha)) {
