@@ -21,23 +21,23 @@ document.querySelector("#botaologin").addEventListener("click", async (event) =>
     const senha = document.querySelector("#senha").value;
     
 
-    if (email === '' && senha === '') {
-         alert('Preencha todos os campos!', 'warning');
-         return;
-    }
-     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/ // Entre 3 e 15 caracteres, letras, números ou "_"
-    const senhaRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{3,9}$/; // Entre 6 e 8 caracteres, 1 maiúscula, 1 minúscula, 1 número e 1 caractere especial
+    // if (email === '' && senha === '') {
+    //      alert('Preencha todos os campos!', 'warning');
+    //      return;
+    // }
+    //  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/ // Entre 3 e 15 caracteres, letras, números ou "_"
+    // const senhaRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{3,9}$/; // Entre 6 e 8 caracteres, 1 maiúscula, 1 minúscula, 1 número e 1 caractere especial
 
    
-    if (!senhaRegex.test(senha)) {
-        alert("A senha  deve ter entre 3 e 8 caracteres");
-        return;
-    }
+    // if (!senhaRegex.test(senha)) {
+    //     alert("A senha  deve ter entre 3 e 8 caracteres");
+    //     return;
+    // }
 
-    if (!emailRegex.test(email)) {
-        alert("O email Deve ter entre 3 e 15 caracteres");
-        return;
-    } 
+    // if (!emailRegex.test(email)) {
+    //     alert("O email Deve ter entre 3 e 15 caracteres");
+    //     return;
+    // } 
     
     
     
@@ -70,9 +70,18 @@ console.log(data)
                     window.location.replace('../HTML/Quizzz.html');
                 }
             } 
-            else {
-                alert('Usuário ou senha incorretos!', 'danger');
-            }
+    else if (response.status === 401) {
+        const errorData = await response.json();
+        alert(`Erro: ${errorData.mensagem}`);
+     } else if (response.status === 401) {
+        const errorData = await response.json();
+        alert(`Erro: ${errorData.mensagem}`);
+    } else if (response.status === 400 || response.status === 409) {
+        const errorData = await response.json();
+        alert(`Erro: ${errorData.mensagem}`);
+    } else {
+        alert('Erro inesperado. Tente novamente mais tarde.');
+    }
           
         } catch (error) {
             console.error('Erro ao fazer login:', error);
