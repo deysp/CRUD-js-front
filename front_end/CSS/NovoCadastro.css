@@ -54,6 +54,24 @@ input{
     border: none;
     outline: none;
 }
+/* .inputt{
+     background: #eee;
+    padding: 12px 15px;
+    margin: 8px 15px;
+    width: 75%;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+} */
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
+}
+
 a{
     color: #333;
     font-size: 14px;
@@ -154,3 +172,16 @@ body {
     transition: background 3s, color 0.3s;
 }
 
+
+.botaoSenha{
+   position: absolute;
+right: 10px;
+top: 19%;
+transform: translateY(-50%);
+border: none;
+cursor: pointer;
+background: transparent;
+font-size: 14px; /* menor que o padrão */
+padding: 0;
+line-height: 1;
+}
