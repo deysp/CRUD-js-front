@@ -41,7 +41,7 @@ document.querySelector("#botaologin").addEventListener("click", async (event) =>
     
     
     
-        try {
+          try {
             const response = await fetch(`http://localhost:3000/login`,{
                 method: "POST",
                 headers: {
@@ -119,7 +119,7 @@ document.querySelector("#cadastrar").addEventListener("click", async (event) => 
     }
 
     try {
-        const response = await fetch('http://localhost:3000/usuario', {
+        const response = await fetch('http://192.168.1.4:3000/usuario', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
