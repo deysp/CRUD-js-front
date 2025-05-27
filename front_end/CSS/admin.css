@@ -5,8 +5,7 @@ html {
   box-sizing: border-box;
 }
 
-*,
-*:before,
+
 *:after {
   box-sizing: inherit;
 }
@@ -15,6 +14,7 @@ body {
   background: #f1f2f7;
   font-family: "Open Sans", arial, sans-serif;
   color: darkslategray;
+  
 }
 
 body.login {
@@ -26,58 +26,53 @@ body.login {
 }
 
 .warn {
-  color: #A6E1FA;
+  color: #fff;
   font-size: 20px;
 }
 
-/* Container do ícone */
-.logo-container {
-    position: absolute; /* Fixa no canto */
-    top: 10px;         /* Distância do topo */
-    left: 10px;        /* Distância da esquerda */
-    z-index: 100;      /* Garante que fique acima de outros elementos */
-}
-
-/* Estilo do ícone */
-.logo {
-    width: 90px;       /* Define a largura do ícone */
-    height: 90px;      /* Define a altura do ícone */
-    object-fit: contain; /* Ajusta o ícone proporcionalmente */
-}
-
-
 /* header */
+/* Alinha a logo e o h1 lado a lado */
 header[role="banner"] {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 15px;
+  padding-left: 90px; /* Deixa espaço para a imagem com position absolute */
+  position: relative;
+  height: 100px; /* Altura suficiente para conter a imagem */
   background: white;
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15);
 }
+
+/* Estiliza o título ao lado da logo */
 header[role="banner"] h1 {
   margin: 0;
-  font-weight: 300;
-  padding: 1rem;
-}
-header[role="banner"] h1:before {
-  content: "\f248";
-  font-family: FontAwesome;
-  padding-right: 0.6em;
-  color: #A6E1FA;
-}
-header[role="banner"] .utilities {
-  width: 100%;
-  background: slategray;
-  color: #ddd;
-}
-header[role="banner"] .utilities li {
-  border-bottom: solid 1px rgba(255, 255, 255, 0.2);
-}
-header[role="banner"] .utilities li a {
-  padding: 0.7em;
-  display: block;
+  padding: 0;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #fff;
 }
 
+/* Mantém o ícone no canto superior esquerdo */
+.logo-container {
+  position: absolute;
+  top: 5px;
+  left: 15px;
+  z-index: 100;
+  
+}
+
+/* Tamanho da imagem da logo */
+.logo {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+}
+
+
 /* header */
-.utilities a:before {
-  content: "\f248";
+.utilities {
+ 
   font-family: FontAwesome;
   padding-right: 0.6em;
 }
@@ -451,13 +446,13 @@ td {
 }
 
 .edit-button{
-  background: #e7c602;
+  background: #0A2472;
   border: none;
-  border-bottom: solid 4px #e7c602;
+  border-bottom: solid 4px #0A2472;
   padding: 0.4em 3em;
   margin: 1em 0;
   color: white;
-  text-shadow: 0 -1px 0 #e7c602;
+  text-shadow: 0 -1px 0 #0A2472;
   font-size: 1.1em;
   font-weight: bold;
   display: inline-block;

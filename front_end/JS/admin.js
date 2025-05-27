@@ -38,6 +38,7 @@ botao.addEventListener('click', async function(event){
             !alternativa_d || alternativa_d === "" ||
             !correta || correta === ""
         ) {
+
             return res.status(400).json('Todos os campos são obrigatórios')
         }
   
@@ -88,16 +89,18 @@ botao.addEventListener('click', async function(event){
     questionTitle.classList.add("card-title");
     questionTitle.innerText = `Pergunta: ${questoes.enunciado}`;
 
+
     const alternatives = document.createElement("ul");
     alternatives.classList.add("card-alternatives");
-    alternatives.innerText = `A: ${questoes.alternativa_a}, 
-                              B: ${questoes.alternativa_b}, 
-                              C: ${questoes.alternativa_c},
+    alternatives.innerText = `A: ${questoes.alternativa_a}
+                              B: ${questoes.alternativa_b}
+                              C: ${questoes.alternativa_c}
                               D: ${questoes.alternativa_d}`;
 
     const correctAnswer = document.createElement("p");
     correctAnswer.classList.add("card-correct-answer");
     correctAnswer.innerText = `Resposta correta: ${questoes.correta}`;
+
 
     const deleteButton = document.createElement("button");
     deleteButton.innerText = "Excluir";
