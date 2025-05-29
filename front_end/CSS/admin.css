@@ -5,8 +5,8 @@ html {
   box-sizing: border-box;
 }
 
-
-*:after {
+*,
+*:after  {
   box-sizing: inherit;
 }
 
@@ -463,3 +463,22 @@ td {
   border-radius: 0.5em;
 }
 
+textarea{
+resize: none;
+}
+#alter{
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: space-between;
+
+}
+
+p{
+  color: #fff;
+
+}
+
+.warn {
+  color: #fff;
+  font-size: 20px;
+}

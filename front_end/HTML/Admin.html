@@ -22,25 +22,26 @@
   
   <main role="main">
     <section class="painel importante">
-      <h2>Escrever uma postagem</h2><br>
+      <h2>Adicionar Perguntas</h2><br>
       <form method="post">
         <div class="doistercos">
-          Pergunta:
-          <input type="text" name="pergunta" id="enunciado" maxlength="200" /><br/> <!--  ADICIONEI id="pergunta" -->
+          <p>Pergunta:</p>
+          <textarea placeholder="Seu enunciado aqui.." id="enunciado" maxlength="100" rows="10">
+          </textarea>
 
           <p>Nível da Pergunta:</p>
           <div id="alter">
             
             <label>
-              Fácil
+              <p>Facil</p>
               <input type="radio" name="dificuldade" value="facil" id="dificuldade"> <!--  ALTEREI name de "nivel" para "dificuldade" e adicionei id -->
             </label>
             <label>
-              Médio
-              <input type="radio" name="dificuldade" value="medio">
+             <p>Médio</p>
+              <input type="radio" name="dificuldade" value="medio"> 
             </label>
             <label>
-              Difícil
+              <p>Dificil</p>
               <input type="radio" name="dificuldade" value="dificil">
             </label>
           </div>

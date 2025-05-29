@@ -77,6 +77,8 @@ botao.addEventListener('click', async function(event){
    async function addQuestionToPage(questoes) {
     const questionList = document.getElementById("questionList");
 
+   
+
     const card = document.createElement("div");
     card.classList.add("card");
 
@@ -96,10 +98,25 @@ botao.addEventListener('click', async function(event){
                               B: ${questoes.alternativa_b}
                               C: ${questoes.alternativa_c}
                               D: ${questoes.alternativa_d}`;
+                                                   
+                              
+ let textoCorreto = "";
+
+if (questoes.correta === "alternativa_a") {
+  textoCorreto = questoes.alternativa_a;
+} else if (questoes.correta === "alternativa_b") {
+  textoCorreto = questoes.alternativa_b;
+} else if (questoes.correta === "alternativa_c") {
+  textoCorreto = questoes.alternativa_c;
+} else if (questoes.correta === "alternativa_d") {
+  textoCorreto = questoes.alternativa_d;
+} else {
+  textoCorreto = "Alternativa inválida";
+}
 
     const correctAnswer = document.createElement("p");
     correctAnswer.classList.add("card-correct-answer");
-    correctAnswer.innerText = `Resposta correta: ${questoes.correta}`;
+    correctAnswer.innerText = `Resposta correta: ${textoCorreto}`;
 
 
     const deleteButton = document.createElement("button");
@@ -124,7 +141,9 @@ botao.addEventListener('click', async function(event){
     const editbutton = document.createElement("button");
     editbutton.innerText = "Editar";
     editbutton.classList.add("edit-button");
-
+    // !MODAL!
+    
+// !!!
     // Monta o card
     card.append(questionTitle, hiddenIdInput, alternatives, correctAnswer, deleteButton, editbutton);
     questionList.appendChild(card);
