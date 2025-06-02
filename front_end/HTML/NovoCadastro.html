@@ -9,66 +9,89 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=visibility" /></head>
 <body>
    <div class="container" id="main">
-      <button id="Trocar" class="Tema">
-         <img src="https://cdn-icons-png.freepik.com/256/544/544209.png?semt=ais_hybrid" width="20" height="20" alt="">
-      </button>
+    
+   <div class="logo-container">
+        <img src="img/icone.png" alt="Ícone Quiz" class="logo">
+    </div>
 
-      <!-- CADASTRO -->
-      <div class="sign-up">
-         <form action="#">
+    <button id="Trocar" class="Tema"><img src="https://cdn-icons-png.freepik.com/256/544/544209.png?semt=ais_hybrid" width="20" height="20" alt="" srcset=""></button>
+    <div class="sign-up">
+        
+           <form action="#">
+              
             <h1>Criar uma conta</h1>
+              
+              
+               <input 
+               id="email1" 
+               type="text" 
+               name="email" 
+               placeholder="Digite seu email" 
+               pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" 
+               title="O e-mail deve conter um formato válido, como exemplo@dominio.com"
+               required/>
 
-            <input id="usuario1" type="text" name="txt" placeholder="Usuário..." required="">
+               <input 
+               id="senha1" 
+               type="password" 
+               name="senha" 
+               placeholder="Digite sua senha"
+               pattern=".{8,}" 
+               title="A senha deve conter pelo menos 8 caracteres"
+               required/>
 
-            <div style="position: relative;" class="campo-senha">
-               <input id="senha1" type="password" name="password" placeholder="Senha..." required="" class="inputt">
-              <button type="button" id="toggleSenhaCadastro" class="botaoSenha teste">
-              <img src="../../imagens/6405909.png" alt="Mostrar senha">
-              </button>
-            </div>
+               <input 
+               id="senhaConfirmacao" 
+               type="password" 
+               name="sneha de Confirmação" 
+               placeholder="Confirme sua senha"
+               pattern=".{8,}" 
+               title="A confirmação da senha deve conter pelo menos 8 caracteres"
+                required 
+                />
+               <button id="cadastrar">Cadastrar</button>
+              
+           </form> 
+           
+       </div>
+       <div class="sign-in">
+       
+           <form action="#">
+               <h1>Entrar</h1>
+               <div class="social-container">
+                 <a href="#" class="social"> <i class="fa-brands fa-instagram"></i></a>
+                 <a href="#" class="social"><i class="fa-brands fa-github"></i></a>
+                 <a href="#" class="social"><i class="fa-brands fa-linkedin"></i></a>
+               </div>
+             
+          
+               <input 
+               id="email" 
+               type="email" 
+               name="email" 
+               placeholder="Digite seu email" 
+               pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" 
+               title="O e-mail deve conter um formato válido, como exemplo@dominio.com"
+               required/>
 
-            <div style="position: relative;"  class="campo-senha">
-               <input id="senhaConfirmacao" type="password" name="passwordConfirm" placeholder="Confirmar senha..." required="" class="inputt">
-               <button type="button" id="toggleSenhaConfirmacao" class="botaoSenha teste">
-               <img src="../../imagens/6405909.png" alt="Mostrar senha">
-               </button>
-            </div>
+               <input 
+               id="senha" 
+               type="password" 
+               name="senha" 
+               placeholder="Digite sua senha" 
+                pattern=".{8,}" 
+               title="A senha deve conter pelo menos 8 caracteres"
+               required/>
 
-            <button id="cadastrar">Cadastrar</button>
-         </form>
-      </div>
-
-      <!-- LOGIN -->
-      <div class="sign-in">
-         <form action="#">
-            <h1>Quiz - Entrar</h1>
-            <div class="social-container">
-               <a href="#" class="social"><i class="fa-brands fa-instagram"></i></a>
-               <a href="#" class="social"><i class="fa-brands fa-github"></i></a>
-               <a href="#" class="social"><i class="fa-brands fa-linkedin"></i></a>
-            </div>
-
-            <input id="email" type="email" name="usuario" placeholder="Usuário..." required="">
-
-            <div style="position: relative;" class="campo-senha">
-
-               <input id="senha" type="password" name="password" placeholder="Senha..." required="" class="inputt">
-
-              <button type="button" id="toggleSenhaLogin" class="botaoSenha">
-              <img src="../../imagens/6405909.png" alt="Mostrar senha">
-              </button>
-
-            </div>
-
-            <a href="#">Esqueceu sua senha?</a>
-            <button id="botaologin">Entrar</button>
-         </form>
-      </div>
-
-      <!-- OVERLAY -->
-      <div class="overlay-container">
-         <div class="overlay">
-            <div class="overlay-left">
+               <a href="#"> Esqueceu sua senha ?</a>
+               <button id="botaologin">Entrar</button>
+              
+           </form> 
+       </div> 
+       <div class="overlay-container">
+       
+           <div class="overlay">
+               <div class="overlay-left">
                <h1>Bem vindo de volta!!</h1>
                <p>Para aproveitar os recursos do nosso aplicativo conosco, faça login com suas informações pessoais</p>
                <button id="signIn">Entrar</button>

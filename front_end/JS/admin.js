@@ -38,6 +38,7 @@ botao.addEventListener('click', async function(event){
             !alternativa_d || alternativa_d === "" ||
             !correta || correta === ""
         ) {
+
             return res.status(400).json('Todos os campos são obrigatórios')
         }
   
@@ -76,102 +77,74 @@ botao.addEventListener('click', async function(event){
    async function addQuestionToPage(questoes) {
     const questionList = document.getElementById("questionList");
 
-    //* Cria o card
-    const card = document.createElement("div");
-    card.inputMode =
-    card.classList.add("card");
+   
 
+    const card = document.createElement("div");
+    card.classList.add("card");
 
     const hiddenIdInput = document.createElement("input");
     hiddenIdInput.type = "hidden";
-    hiddenIdInput.value = questao.id_pergunta;
+    hiddenIdInput.value = questoes.id_pergunta;
     hiddenIdInput.classList.add("question-id");
-  
 
-    //* Título da pergunta
     const questionTitle = document.createElement("h3");
     questionTitle.classList.add("card-title");
-    questionTitle.innerText = `Pergunta: ${questao.enunciado}`;
+    questionTitle.innerText = `Pergunta: ${questoes.enunciado}`;
 
-    //! Alternativas!
+
     const alternatives = document.createElement("ul");
     alternatives.classList.add("card-alternatives");
-    alternatives.innerText =` ${questoes.alternativa_a}, 
-                              ${questoes.alternativa_b}, 
-                              ${questoes.alternativa_c},
-                              ${questoes.alternativa_d}`;
-  
- 
-    
-    
-    
+    alternatives.innerText = `A: ${questoes.alternativa_a}
+                              B: ${questoes.alternativa_b}
+                              C: ${questoes.alternativa_c}
+                              D: ${questoes.alternativa_d}`;
+                                                   
+                              
+ let textoCorreto = "";
 
-    
-  
-
-    //* Resposta correta
-    const correctAnswer = document.createElement("p");
-    correctAnswer.classList.add("card-correct-answer");
-    correctAnswer.innerText = `Resposta correta: ${questao.correta}`;
-
-
-    //* Botão de deletar
-  const deleteButton = document.createElement("button");
-  deleteButton.innerText = "Excluir";
-  deleteButton.classList.add("delete-button");
-  deleteButton.addEventListener("click", async () => {
-  try {
-    const response = await fetch(`http://localhost:3000/perguntas/${questao.id_pergunta}`, {
-      method: "DELETE",
-  
-    });
-    if (response.ok) {
-      alert('Pergunta excluida')
-      card.remove(); // Remove o card da tela
-    } else {
-      alert("Erro ao deletar a pergunta.");
-    }
-  } catch (error) {
-    console.error("Erro na exclusão:", error);
-  }
-});
-
-// 
-// !MODAL!
-
-
-const editbutton = document.createElement("button");
-editbutton.innerText = "Editar";
-editbutton.classList.add("edit-button");
-editbutton.addEventListener("click", async () => {})
-  
-
-  try {
-    const response = await fetch(`http://localhost:3000/perguntas/${questao.id_pergunta}`,{
-      method: "PUT",})
-    
-
-const openButtons = document.querySelectorAll('.open-modal');
-openButtons.forEach((button) => { //pega qual dos botões foram selecionados da class .open-modal
-
-  button.addEventListener("click", () => { //arrow function pegar algo - no caso clique do botão
-    const modalId = button.getAttribute("data-modal"); //especificar qual ATRIBUTO - data-modal foi pego 
-    const modal = document.getElementById(modalId); //especificar qual elemento por ID foi pego 
-    modal.showModal(); //show ou showModal
-
-  });
-});
-  }
-
-catch(error){
-console.log("ocorre um erro..", error)
+if (questoes.correta === "alternativa_a") {
+  textoCorreto = questoes.alternativa_a;
+} else if (questoes.correta === "alternativa_b") {
+  textoCorreto = questoes.alternativa_b;
+} else if (questoes.correta === "alternativa_c") {
+  textoCorreto = questoes.alternativa_c;
+} else if (questoes.correta === "alternativa_d") {
+  textoCorreto = questoes.alternativa_d;
+} else {
+  textoCorreto = "Alternativa inválida";
 }
 
+    const correctAnswer = document.createElement("p");
+    correctAnswer.classList.add("card-correct-answer");
+    correctAnswer.innerText = `Resposta correta: ${textoCorreto}`;
 
-// Monta o card
-card.append(questionTitle,  hiddenIdInput,  alternatives, correctAnswer, deleteButton, editbutton);
 
-    // Adiciona o card ao contêiner de perguntas
+    const deleteButton = document.createElement("button");
+    deleteButton.innerText = "Excluir";
+    deleteButton.classList.add("delete-button");
+    deleteButton.addEventListener("click", async () => {
+        try {
+            const response = await fetch(`http://localhost:3000/perguntas/${questoes.id_pergunta}`, {
+                method: "DELETE",
+            });
+            if (response.ok) {
+                alert('Pergunta excluída');
+                card.remove();
+            } else {
+                alert("Erro ao deletar a pergunta.");
+            }
+        } catch (error) {
+            console.error("Erro na exclusão:", error);
+        }
+    });
+
+    const editbutton = document.createElement("button");
+    editbutton.innerText = "Editar";
+    editbutton.classList.add("edit-button");
+    // !MODAL!
+    
+// !!!
+    // Monta o card
+    card.append(questionTitle, hiddenIdInput, alternatives, correctAnswer, deleteButton, editbutton);
     questionList.appendChild(card);
-   
-  }
+}

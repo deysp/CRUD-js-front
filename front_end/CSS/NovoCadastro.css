@@ -6,10 +6,26 @@ body{
     display: flex;
     justify-content: center;
     flex-direction: column;
-    background: #111;
+      background: #f4f4f4; /* Cinza claro */
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+     color: #2a4d69; /* Azul escuro */
     min-height: 100%;
     margin: 10%;
+}
+
+/* Container do ícone */
+.logo-container {
+    position: absolute; /* Fixa no canto */
+    top: 10px;         /* Distância do topo */
+    left: 10px;        /* Distância da esquerda */
+    z-index: 100;      /* Garante que fique acima de outros elementos */
+}
+
+/* Estilo do ícone */
+.logo {
+    width: 90px;       /* Define a largura do ícone */
+    height: 90px;      /* Define a altura do ícone */
+    object-fit: contain; /* Ajusta o ícone proporcionalmente */
 }
 
 .sign-up, .sign-in{
@@ -29,7 +45,7 @@ body{
     z-index: 2;
 }
 form{
-    background:#fff;
+    background:#f7f7f7;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -45,55 +61,13 @@ h1{
     letter-spacing: 0.5px;
     margin: 15px 0 20px;
 }
-/* Seu input padrão */
-input {
-  background: #eee;
-  padding: 12px 15px;
-  margin: 8px 15px;
-  width: 100%;
-  border-radius: 5px;
-  border: none;
-  outline: none;
-  box-sizing: border-box;
-  padding-right: 45px; /* espaço pro botão dentro */
-}
-
-/* Wrapper pra posicionar */
-.campo-senha {
-  position: relative;
-  margin: 8px 15px;
-}
-
-/* Botão do olho */
-.botaoSenha {
-  position: absolute;
-  top: 50%;
-  right: 15px;
-  transform: translateY(-50%);
-  background: white;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  outline: none;      
-}
-
-.botaoSenha:focus {
-  outline: none;      
-  box-shadow: none;   
-}
-
-.botaoSenha img {
-  width: 24px;
-  height: 24px;
-}
-
-/* .inputt{
-     background: #eee;
+input{
+   background: #f4f4f4;
     padding: 12px 15px;
     margin: 8px 15px;
     width: 75%;
     border-radius: 5px;
-    border: none;
+    border: 1px solid #ccc; /* Contorno suave */
     outline: none;
 } */
 
@@ -106,20 +80,20 @@ input {
 }
 
 a{
-    color: #333;
+    color: #5b8c99;
     font-size: 14px;
     text-decoration: none;
     margin: 15px 0;
 }
 button{
     color: #000000;
-    background: #A6E1FA;
+    background: #81b1c7;
     font-size: 12px;
     font-weight: bold;
     padding: 12px 55px;
     margin: 20px;
     border-radius: 20px;
-    border: 1px solid #A6E1FA;
+ border: 1px solid #81b1c7;
     outline: none;
     letter-spacing: 1px;
     text-transform: uppercase;
@@ -156,12 +130,12 @@ button:active{
 }
 .overlay{
     position: relative;
-    color: #fff;
-    background: #A6E1FA;
+    color: #ffffff; /* Texto branco */
+    background: #81b1c7; /* Azul neutro */
     left: -100%;
     height: 100%;
     width: 200%;
-    background: linear-gradient(to right , #A6E1FA ,#A6E1FA);
+    background: linear-gradient(to right , #81b1c7, #5b8c99);
     transform: translateX(0);
     transition: transform 0.6s ease-in-out;
 }
@@ -206,14 +180,71 @@ body {
 }
 
 
-.botaoSenha{
-   position: absolute;
-right: 10px;
-top: 19%;
-transform: translateY(-50%);
-border: none;
-cursor: pointer;
-font-size: 14px; /* menor que o padrão */
-padding: 0;
-line-height: 1;
+@media (min-width: 1024px) {
+    body {
+        margin: 0;
+        padding: 0;
+    }
+    .sign-up, .sign-in {
+        width: 50%;
+    }
+    .overlay-container {
+        left: 50%;
+        width: 50%;
+    }
+    form {
+        padding: 20px 60px;
+    }
+}
+
+/* Para telas entre 768px e 1023px (tablet/notebook) */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .sign-up, .sign-in {
+        width: 70%;
+    }
+    .overlay-container {
+        left: 30%;
+        width: 70%;
+    }
+    form {
+        padding: 15px 40px;
+    }
+    input {
+        padding: 10px 12px;
+        font-size: 14px;
+    }
+    button {
+        padding: 10px 40px;
+        font-size: 10px;
+    }
+}
+
+/* Para telas menores que 768px (mobile) */
+@media (max-width: 767px) {
+    body {
+        flex-direction: column;
+    }
+    .sign-up, .sign-in {
+        width: 100%;
+    }
+    .overlay-container {
+        left: 0;
+        width: 100%;
+    }
+    .overlay-right, .overlay-left {
+        width: 100%;
+        padding: 10px;
+    }
+    input {
+        width: 90%;
+        margin: 5px auto;
+    }
+    button {
+        padding: 10px 30px;
+        font-size: 10px;
+    }
+    h1 {
+        font-size: 18px;
+        margin: 10px 0;
+    }
 }
