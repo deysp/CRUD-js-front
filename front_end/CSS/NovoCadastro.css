@@ -45,15 +45,48 @@ h1{
     letter-spacing: 0.5px;
     margin: 15px 0 20px;
 }
-input{
-    background: #eee;
-    padding: 12px 15px;
-    margin: 8px 15px;
-    width: 100%;
-    border-radius: 5px;
-    border: none;
-    outline: none;
+/* Seu input padrão */
+input {
+  background: #eee;
+  padding: 12px 15px;
+  margin: 8px 15px;
+  width: 100%;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  box-sizing: border-box;
+  padding-right: 45px; /* espaço pro botão dentro */
 }
+
+/* Wrapper pra posicionar */
+.campo-senha {
+  position: relative;
+  margin: 8px 15px;
+}
+
+/* Botão do olho */
+.botaoSenha {
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  background: white;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  outline: none;      
+}
+
+.botaoSenha:focus {
+  outline: none;      
+  box-shadow: none;   
+}
+
+.botaoSenha img {
+  width: 24px;
+  height: 24px;
+}
+
 /* .inputt{
      background: #eee;
     padding: 12px 15px;
@@ -180,7 +213,6 @@ top: 19%;
 transform: translateY(-50%);
 border: none;
 cursor: pointer;
-background: transparent;
 font-size: 14px; /* menor que o padrão */
 padding: 0;
 line-height: 1;

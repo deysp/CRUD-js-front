@@ -110,29 +110,38 @@ document.querySelector("#cadastrar").addEventListener("click", async (event) => 
 // Mostrar/esconder senha login
 const toggleSenhaLogin = document.getElementById("toggleSenhaLogin");
 const inputSenhaLogin = document.getElementById("senha");
+const imgLogin = toggleSenhaLogin.querySelector("img");
 
 toggleSenhaLogin.addEventListener("click", () => {
   const tipo = inputSenhaLogin.type === "password" ? "text" : "password";
   inputSenhaLogin.type = tipo;
-  toggleSenhaLogin.textContent = tipo === "password" ? "👁️" : "🙈";
+  imgLogin.src = tipo === "password" 
+    ? "../../imagens/olhof.png" 
+    : "../../imagens/246697.png";
 });
 
 // Mostrar/esconder senha cadastro
 const toggleSenhaCadastro = document.getElementById("toggleSenhaCadastro");
 const inputSenhaCadastro = document.getElementById("senha1");
+const imgCadastro = toggleSenhaCadastro.querySelector("img");
 
 toggleSenhaCadastro.addEventListener("click", () => {
   const tipo = inputSenhaCadastro.type === "password" ? "text" : "password";
   inputSenhaCadastro.type = tipo;
-  toggleSenhaCadastro.textContent = tipo === "password" ? "👁️" : "🙈";
+  imgCadastro.src = tipo === "password" 
+    ? "../../imagens/olhof.png" 
+    : "../../imagens/246697.png";
 });
 
 // Mostrar/esconder senha de confirmação
 const toggleSenhaConf = document.getElementById("toggleSenhaConfirmacao");
 const inputSenhaConf = document.getElementById("senhaConfirmacao");
+const imgConf = toggleSenhaConf.querySelector("img");
 
 toggleSenhaConf.addEventListener("click", () => {
   const tipo = inputSenhaConf.type === "password" ? "text" : "password";
   inputSenhaConf.type = tipo;
-  toggleSenhaConf.innerHTML = tipo === "password" ? `"👁️"` : "🙈";
+  imgConf.src = tipo === "password" 
+    ? "../../imagens/olhof.png" 
+    : "../../imagens/246697.png";
 });
