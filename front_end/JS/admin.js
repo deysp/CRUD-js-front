@@ -39,7 +39,7 @@ botao.addEventListener('click', async function(event){
             !correta || correta === ""
         ) {
 
-            return res.status(400).json('Todos os campos são obrigatórios')
+          alert('Todos os campos são obrigatórios')
         }
   
   if(res.status == 200){
@@ -60,13 +60,13 @@ botao.addEventListener('click', async function(event){
         const response = await fetch("http://localhost:3000/perguntas");
         const questions = await response.json();
 
-        console.log(questions); // Apenas para garantir que estamos recebendo as perguntas
+        // console.log(questions); // Apenas para garantir que estamos recebendo as perguntas
 
         // Adiciona cada pergunta à lista
         // questions.map((questao) => addQuestionToPage(questao));
         questions.forEach((questoes, index) => {
           // console.log(`Processando pergunta ${index + 1}:`, questions); // Log para depuração
-          console.log(questoes)
+          // console.log(questoes)
           addQuestionToPage(questoes);
       });
     } catch (error) {
@@ -99,7 +99,8 @@ botao.addEventListener('click', async function(event){
                               C: ${questoes.alternativa_c}
                               D: ${questoes.alternativa_d}`;
                                                    
-                              
+
+  //Para aparecer o que foi escrito
  let textoCorreto = "";
 
 if (questoes.correta === "alternativa_a") {
@@ -141,10 +142,54 @@ if (questoes.correta === "alternativa_a") {
     const editbutton = document.createElement("button");
     editbutton.innerText = "Editar";
     editbutton.classList.add("edit-button");
-    // !MODAL!
     
+    // !MODAL!
+     
+    try {
+    const response = await fetch(`http://localhost:3000/perguntas/${questoes.id_pergunta}`,{
+      method: "PUT",
+      headers: {"Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+                enunciado : enunciado, 
+                alternativa_a : alternativa_a, 
+                alternativa_b : alternativa_b, 
+                alternativa_c : alternativa_c, 
+                alternativa_d : alternativa_d,  
+                correta : correta
+
+      })
+    
+    })
+
+const botaoeditar = document.querySelectorAll('.edit-button')
+const openButtons = document.querySelectorAll('.open-modal');
+openButtons.forEach((botaoeditar) => { //pega qual dos botões foram selecionados da class .open-modal
+
+  botaoeditar.addEventListener("click", () => { //arrow function pegar algo - no caso clique do botão
+    const modalId = button.getAttribute("data-modal"); //especificar qual ATRIBUTO - data-modal foi pego 
+    const modal = document.getElementById(modalId); //especificar qual elemento por ID foi pego 
+    modal.showModal(); //show ou showModal
 // !!!
-    // Monta o card
-    card.append(questionTitle, hiddenIdInput, alternatives, correctAnswer, deleteButton, editbutton);
-    questionList.appendChild(card);
-}
+})
+})
+const closeButtons = document.querySelectorAll('.close-modal');
+closeButtons.forEach((button)=>{
+
+      try{
+        
+        button.addEventListener('click', () =>{
+          const modalId = button.getAttribute("data-modal"); 
+          const modal = document.getElementById(modalId); 
+          modal.close(); //fechar modal
+        })
+
+      }
+      catch(error){
+        
+      }
+    })
+  }
+  catch(erro){
+    console.log(erro)
+  }}

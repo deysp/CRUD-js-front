@@ -20,24 +20,22 @@ async function loadQuestion() {
     }
 
     try {
-        const resposta = await fetch("http://localhost:3000/Bperguntas", {
-            
+        const resposta = await fetch("http://localhost:3000/perguntas", {
         });
-
         const questaoAtual = await resposta.json();
+        console.log(questaoAtual)
         const questoes = questaoAtual[0];
-
-        questao.innerText = questoes.pergunta;
-        respostaCorreta = questoes.correct_answer;
+        questao.innerText = questoes.enunciado;
+        respostaCorreta = questoes.correta;
         
         contadorQuestoes++;
         contador.innerText = `Questão ${contadorQuestoes} de ${limiteQuestoes}`;
 
         opcoes.innerHTML = `
-            <label><input type="radio" name="resposta" value="a"> A) ${questoes.a}</label><br>
-            <label><input type="radio" name="resposta" value="b"> B) ${questoes.b}</label><br>
-            <label><input type="radio" name="resposta" value="c"> C) ${questoes.c}</label><br>
-            <label><input type="radio" name="resposta" value="d"> D) ${questoes.d}</label><br>
+            <label><input type="radio" name="resposta" value="alternativa_a"> A) ${questoes.alternativa_a}</label><br>
+            <label><input type="radio" name="resposta" value="alternativa_b"> B) ${questoes.alternativa_b}</label><br>
+            <label><input type="radio" name="resposta" value="alternativa_c"> C) ${questoes.alternativa_c}</label><br>
+            <label><input type="radio" name="resposta" value="alternativa_d"> D) ${questoes.alternativa_d}</label><br>
         `;
 
         mensagem.innerHTML = "";
