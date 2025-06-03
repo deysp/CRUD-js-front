@@ -21,23 +21,23 @@ document.querySelector("#botaologin").addEventListener("click", async (event) =>
     const senha = document.querySelector("#senha").value;
     
 
-    // if (email === '' && senha === '') {
-    //      alert('Preencha todos os campos!', 'warning');
-    //      return;
-    // }
-    //  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/ // Entre 3 e 15 caracteres, letras, números ou "_"
-    // const senhaRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{3,9}$/; // Entre 6 e 8 caracteres, 1 maiúscula, 1 minúscula, 1 número e 1 caractere especial
+    if (email === '' && senha === '') {
+         alert('Preencha todos os campos!', 'warning');
+         return;
+    }
+     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/ // Entre 3 e 15 caracteres, letras, números ou "_"
+    const senhaRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{3,9}$/; // Entre 6 e 8 caracteres, 1 maiúscula, 1 minúscula, 1 número e 1 caractere especial
 
    
-    // if (!senhaRegex.test(senha)) {
-    //     alert("A senha  deve ter entre 3 e 8 caracteres");
-    //     return;
-    // }
+    if (!senhaRegex.test(senha)) {
+        alert("A senha  deve ter entre 3 e 8 caracteres");
+        return;
+    }
 
-    // if (!emailRegex.test(email)) {
-    //     alert("O email Deve ter entre 3 e 15 caracteres");
-    //     return;
-    // } 
+    if (!emailRegex.test(email)) {
+        alert("O email Deve ter entre 3 e 15 caracteres");
+        return;
+    } 
     
     
     
@@ -191,40 +191,31 @@ document.querySelector("#cadastrar").addEventListener("click", async (event) => 
 });
 
 // Mostrar/esconder senha login
-const toggleSenhaLogin = document.getElementById("toggleSenhaLogin");
-const inputSenhaLogin = document.getElementById("senha");
-const imgLogin = toggleSenhaLogin.querySelector("img");
+const senhaLogin = document.getElementById("senhaum")
+const inputLogin =document.getElementById("senha")
 
-toggleSenhaLogin.addEventListener("click", () => {
-  const tipo = inputSenhaLogin.type === "password" ? "text" : "password";
-  inputSenhaLogin.type = tipo;
-  imgLogin.src = tipo === "password" 
-    ? "../../imagens/olhof.png" 
-    : "../../imagens/246697.png";
-});
+senhaLogin.addEventListener("click", () => {
+  const isPassword = inputLogin.type === "password"
+  inputLogin.type = isPassword ? 'text' : 'password'
+  senhaLogin.textContent = isPassword ? 'visibility_off' : 'visibility'
+})
 
 // Mostrar/esconder senha cadastro
-const toggleSenhaCadastro = document.getElementById("toggleSenhaCadastro");
-const inputSenhaCadastro = document.getElementById("senha1");
-const imgCadastro = toggleSenhaCadastro.querySelector("img");
+const senhaCadastro = document.getElementById("senhaCadastro")
+const inputCadastro = document.getElementById("senha1")
 
-toggleSenhaCadastro.addEventListener("click", () => {
-  const tipo = inputSenhaCadastro.type === "password" ? "text" : "password";
-  inputSenhaCadastro.type = tipo;
-  imgCadastro.src = tipo === "password" 
-    ? "../../imagens/olhof.png" 
-    : "../../imagens/246697.png";
-});
+senhaCadastro.addEventListener("click", () => {
+  const isPassword = inputCadastro.type === 'password'
+  inputCadastro.type = isPassword ? 'text' : 'password'
+  senhaCadastro.textContent = isPassword ? 'visibility_off' : 'visibility'
+})
 
 // Mostrar/esconder senha de confirmação
-const toggleSenhaConf = document.getElementById("toggleSenhaConfirmacao");
-const inputSenhaConf = document.getElementById("senhaConfirmacao");
-const imgConf = toggleSenhaConf.querySelector("img");
+const senhaconf = document.getElementById("senhaconf")
+const inputconf = document.getElementById("senhaConfirmacao")
 
-toggleSenhaConf.addEventListener("click", () => {
-  const tipo = inputSenhaConf.type === "password" ? "text" : "password";
-  inputSenhaConf.type = tipo;
-  imgConf.src = tipo === "password" 
-    ? "../../imagens/olhof.png" 
-    : "../../imagens/246697.png";
-});
+senhaconf.addEventListener("click", () => {
+  const isPassword = inputconf.type === 'password'
+  inputconf.type = isPassword ? 'text' : 'password'
+  senhaconf.textContent = isPassword ? 'visibility_off' : 'visibility'
+})
