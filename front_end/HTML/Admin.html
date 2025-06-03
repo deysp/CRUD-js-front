@@ -1,84 +1,82 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página do adm</title>
-    <link rel="stylesheet" href="../CSS/admin.css">
-    <link rel="stylesheet" href="../Tema/Tema.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Página do adm</title>
+  <link rel="stylesheet" href="../CSS/admin.css" />
+  <link rel="stylesheet" href="../Tema/Tema.css" />
 </head>
 <body>
-      <header role="banner">
-        <div class="logo-container">
-            <img src="/imagens/icone.png" alt="Ícone Quiz" class="logo">
-        </div>
+  <header role="banner">
+    <div class="logo-container">
+      <img src="../../imagens/icone.png" alt="Ícone Quiz" class="logo" />
+    </div>
     <h1>Quiz-Administrativo</h1>
-    
     <ul class="utilities">
-      <br>
+      <br />
       <li class="logout warn"><a href="../HTML/NovoCadastro.html">Sair</a></li>
     </ul>
   </header>
-  
+
   <main role="main">
     <section class="painel importante">
       <h2>Adicionar Perguntas</h2><br>
       <form method="post">
         <div class="doistercos">
           <p>Pergunta:</p>
-          <textarea placeholder="Seu enunciado aqui.." id="enunciado" maxlength="200" rows="10">
-          </textarea>
-  
-          Alternativas:    
+          <textarea placeholder="Seu enunciado aqui.." id="enunciado" maxlength="200" rows="10"></textarea>
+
+          <p>Alternativas:</p>
           <section id="conteudo"><br>
-            <input type="text" name="alternativas" id="alternativa_a" size="40" maxlength="100"/><br> <!--  ALTEREI id de opcaoa → a -->
-            <input type="text" name="alternativas" id="alternativa_b" size="40" maxlength="100"/><br> <!--  ALTEREI id de opcaob → b -->
-            <input type="text" name="alternativas" id="alternativa_c" size="40" maxlength="100"/><br> <!--  ALTEREI id de opcaoC → c -->
-            <input type="text" name="alternativas" id="alternativa_d" size="40" maxlength="100"/><br> <!--  ALTEREI id de opcaoD → d -->
-            
-            <div id="Alternativas_Corretas">
-              <p>alternativa correta</p>
-            <label class="corretas">
-              <p>A</p>
-              <input type="radio" name="correta" value="alternativa_a" id="dificuldade"> <!--  ALTEREI name de "nivel" para "dificuldade" e adicionei id -->
-            </label>
-            
-            <label class="corretas">
-             <p>B</p>
-              <input type="radio" name="correta" value="alternativa_b"> 
-            </label>
-            
-            <label class="corretas">
-              <p>C</p>
-              <input type="radio" name="correta" value="alternativa_c">
-            
-            </label class="corretas">
-              <p>D</p>
-              <input type="radio" name="correta" value="alternativa_d">
-            </label>
-            </div>
-            
-          
-          </div>
-          <div>
-          <input type="submit" id="cadastrar" value="Salvar" /> <!--  ALTEREI  id="cadastrar" -->
-        </div>
+            <input type="text" name="alternativas" id="alternativa_a" size="40" maxlength="100" /><br>
+            <input type="text" name="alternativas" id="alternativa_b" size="40" maxlength="100" /><br>
+            <input type="text" name="alternativas" id="alternativa_c" size="40" maxlength="100" /><br>
+            <input type="text" name="alternativas" id="alternativa_d" size="40" maxlength="100" /><br>
           </section>
+
+          <div id="Alternativas_Corretas">
+            <p>Alternativa Correta</p>
+             <select id ="Correta">
+          <option value="alternativa_a">A</option>
+          <option value="alternativa_b">B</option>
+          <option value="alternativa_c">C</option>
+          <option value="alternativa_d">D</option>
+        </select>
+          </div>
+        </div>
+        <div>
+          <input type="submit" id="cadastrar" value="Salvar" />
         </div>
       </form>
-      
     </section>
 
     <section class="painel importante">
       <h2>Perguntas Disponíveis</h2>
     </section>
     <div id="questionList">
-        <!-- As perguntas serão carregadas aqui dinamicamente -->
+      <!-- As perguntas serão carregadas aqui dinamicamente -->
     </div>
 
-      
-          <dialog id="modalCadastro"></dialog>
-            <button class="close-modal" data-modal="modalCadastro">X</button>
+    <!-- ✅ Modal de Edição -->
+    <dialog id="modal-editar">
+      <form method="dialog" id="form-editar">
+        <h2>Editar Pergunta</h2>
+        <textarea id="edit-enunciado" rows="4" maxlength="200" placeholder="Novo enunciado"></textarea><br>
+        <input type="text" id="edit-a" placeholder="Alternativa A" /><br>
+        <input type="text" id="edit-b" placeholder="Alternativa B" /><br>
+        <input type="text" id="edit-c" placeholder="Alternativa C" /><br>
+        <input type="text" id="edit-d" placeholder="Alternativa D" /><br>
+        <select id="edit-correta">
+          <option value="alternativa_a">A</option>
+          <option value="alternativa_b">B</option>
+          <option value="alternativa_c">C</option>
+          <option value="alternativa_d">D</option>
+        </select><br><br>
+        <button id="salvar-edicao" type="button">Salvar</button>
+        <button class="close-modal" type="button">Fechar</button>
+      </form>
+    </dialog>
   </main>
 
   <script src="../JS/admin.js"></script>
