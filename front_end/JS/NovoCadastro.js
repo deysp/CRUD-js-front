@@ -39,8 +39,15 @@ document.querySelector("#botaologin").addEventListener("click", async (event) =>
     //     return;
     // } 
     
-    
-    
+      if (!email || !senha) {
+    alert("Preencha todos os campos!");
+    return;
+  }
+  
+    if (senha.length > 8) {
+    alert("As senhas devem ter no máximo 8 caracteres");
+    return;
+  }
           try {
             const response = await fetch(`http://localhost:3000/login`,{
                 method: "POST",
@@ -73,13 +80,13 @@ document.querySelector("#botaologin").addEventListener("click", async (event) =>
             } 
     else if (response.status === 401) {
         const errorData = await response.json();
-        alert(`Erro: ${errorData.mensagem}`);
-     } else if (response.status === 401) {
+        alert(`Erro: ${errorData}`);
+     } else if (response.status === 403) {
         const errorData = await response.json();
-        alert(`Erro: ${errorData.mensagem}`);
+        alert(`Erro: ${errorData}`);
     } else if (response.status === 400 || response.status === 409) {
         const errorData = await response.json();
-        alert(`Erro: ${errorData.mensagem}`);
+        alert(`Erro: ${errorData}`);
     } else {
         alert('Erro inesperado. Tente novamente mais tarde.');
     }
@@ -100,7 +107,7 @@ signInButton.addEventListener('click', () => {
 document.querySelector("#cadastrar").addEventListener("click", async (event) => {
   event.preventDefault();
 
-  const email = document.querySelector("#usuario1").value.trim();
+  const email = document.querySelector("#email1").value.trim();
   const senha = document.querySelector("#senha1").value.trim();
   const senhaConfirmacao = document.querySelector("#senhaConfirmacao").value.trim();
 
@@ -120,7 +127,7 @@ document.querySelector("#cadastrar").addEventListener("click", async (event) => 
   }
 
   try {
-    const response = await fetch('http://192.168.1.4:3000/usuario', {
+    const response = await fetch('http://localhost:3000/usuario', {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -152,6 +159,14 @@ toggleSenhaLogin.addEventListener("click", () => {
     ? "../../imagens/olhof.png" 
     : "../../imagens/246697.png";
 });
+const senhaLogin = document.getElementById("senhaum")
+const inputLogin =document.getElementById("senha")
+
+senhaLogin.addEventListener("click", () => {
+  const isPassword = inputLogin.type === "password"
+  inputLogin.type = isPassword ? 'text' : 'password'
+  senhaLogin.textContent = isPassword ? 'visibility_off' : 'visibility'
+})
 
 // Mostrar/esconder senha cadastro
 const toggleSenhaCadastro = document.getElementById("toggleSenhaCadastro");
@@ -165,6 +180,14 @@ toggleSenhaCadastro.addEventListener("click", () => {
     ? "../../imagens/olhof.png" 
     : "../../imagens/246697.png";
 });
+const senhaCadastro = document.getElementById("senhaCadastro")
+const inputCadastro = document.getElementById("senha1")
+
+senhaCadastro.addEventListener("click", () => {
+  const isPassword = inputCadastro.type === 'password'
+  inputCadastro.type = isPassword ? 'text' : 'password'
+  senhaCadastro.textContent = isPassword ? 'visibility_off' : 'visibility'
+})
 
 // Mostrar/esconder senha de confirmação
 const toggleSenhaConf = document.getElementById("toggleSenhaConfirmacao");
@@ -178,3 +201,11 @@ toggleSenhaConf.addEventListener("click", () => {
     ? "../../imagens/olhof.png" 
     : "../../imagens/246697.png";
 });
+const senhaconf = document.getElementById("senhaconf")
+const inputconf = document.getElementById("senhaConfirmacao")
+
+senhaconf.addEventListener("click", () => {
+  const isPassword = inputconf.type === 'password'
+  inputconf.type = isPassword ? 'text' : 'password'
+  senhaconf.textContent = isPassword ? 'visibility_off' : 'visibility'
+})

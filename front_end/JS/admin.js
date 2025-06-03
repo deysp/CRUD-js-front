@@ -8,8 +8,8 @@ botao.addEventListener('click', async function(event){
   const alternativa_b = document.querySelector('#alternativa_b').value;
   const alternativa_c = document.querySelector('#alternativa_c').value;
   const alternativa_d = document.querySelector('#alternativa_d').value;
-  const correta = document.querySelector('#correta').value;
-  
+  const correta = document.querySelector('input[name="correta"]:checked')?.value;
+ 
 
   const res = await fetch('http://localhost:3000/perguntas',{
 

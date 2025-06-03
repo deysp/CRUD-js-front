@@ -1,6 +1,21 @@
 *{
     box-sizing: border-box;
 }
+
+/* Remove o ícone de "mostrar senha" no Chrome e Edge */Add commentMore actions
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+    display: none;
+}
+
+input[type="password"]::-webkit-credentials-auto-fill-button,
+input[type="password"]::-webkit-textfield-decoration-container,
+input[type="password"]::-webkit-inner-spin-button,
+input[type="password"]::-webkit-clear-button {
+    display: none;
+    -webkit-appearance: none;
+}
+
 body{
     align-items: center;
     display: flex;
@@ -15,10 +30,11 @@ body{
 
 /* Container do ícone */
 .logo-container {
-    position: absolute; /* Fixa no canto */
-    top: 10px;         /* Distância do topo */
-    left: 10px;        /* Distância da esquerda */
-    z-index: 100;      /* Garante que fique acima de outros elementos */
+   position: absolute;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+      /* Garante que fique acima de outros elementos */
 }
 
 /* Estilo do ícone */
@@ -63,6 +79,7 @@ h1{
 }
 input{
    background: #f4f4f4;
+    background: #ffffff;
     padding: 12px 15px;
     margin: 8px 15px;
     width: 75%;
@@ -70,6 +87,41 @@ input{
     border: 1px solid #ccc; /* Contorno suave */
     outline: none;
 } */
+
+More actions
+.input-wrapper {
+    display: flex;
+    align-items: center;
+    background: #ffffff;
+    padding: 0 10px;
+    margin: 8px 15px;
+    width: 75%;
+    border-radius: 5px;
+    border: 1px solid #ffffff;
+}
+
+.input-wrapper input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    padding:  10px;
+    outline: none;
+    font-size: 16px;
+    padding-left: 5px;
+    margin: 0;          /* zera margens */
+    padding-left: 5px; /* define distância do texto interno */
+
+}
+
+.input-wrapper span {
+    cursor: pointer;
+    color: #333;
+    font-size: 20px;
+    padding: 0 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 .material-symbols-outlined {
   font-variation-settings:

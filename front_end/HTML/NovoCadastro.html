@@ -6,7 +6,8 @@
    <link rel="stylesheet" href="../CSS/NovoCadastro.css">
    <link rel="stylesheet" href="../Tema/Tema.css">
    <title>Página de Login de Usuário</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=visibility" /></head>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+</head>
 <body>
    <div class="container" id="main">
     
@@ -31,24 +32,38 @@
                title="O e-mail deve conter um formato válido, como exemplo@dominio.com"
                required/>
 
+            <div class="input-wrapper">
                <input 
                id="senha1" 
                type="password" 
                name="senha" 
                placeholder="Digite sua senha"
-               pattern=".{8,}" 
-               title="A senha deve conter pelo menos 8 caracteres"
-               required/>
+               minlength="8"
+                maxlength="8"
+                pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
+                title="A senha deve ter 8 caracteres, incluindo letras e numeros"
+                required/>
+                 <span id="senhaCadastro" class="material-symbols-outlined">Add commentMore actions
+                        visibility
+                    </span>
+                </div>
 
+            <div class="input-wrapper">
                <input 
                id="senhaConfirmacao" 
                type="password" 
                name="sneha de Confirmação" 
                placeholder="Confirme sua senha"
-               pattern=".{8,}" 
-               title="A confirmação da senha deve conter pelo menos 8 caracteres"
+               minlength="8"
+                maxlength="8"
+               title="A confirmação deve ter 8 caracteres, incluindo letras e numeros"
                 required 
                 />
+                 <span id="senhaconf" class="material-symbols-outlined">Add commentMore actions
+                        visibility
+                    </span>
+
+            </div>
                <button id="cadastrar">Cadastrar</button>
               
            </form> 
@@ -70,19 +85,25 @@
                type="email" 
                name="email" 
                placeholder="Digite seu email" 
-               pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" 
-               title="O e-mail deve conter um formato válido, como exemplo@dominio.com"
-               required/>
-
+               pattern="^[^\s@]{1,}@[^@\s]{2,}\.[^\s@]{2,}$"
+                title="o e-mail deve conter @"
+                required/>
+            <div class="input-wrapper" >
                <input 
                id="senha" 
                type="password" 
                name="senha" 
                placeholder="Digite sua senha" 
-                pattern=".{8,}" 
-               title="A senha deve conter pelo menos 8 caracteres"
-               required/>
+                minlength="8"
+                maxlength="8"
+                pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
+                title="A senha deve ter 8 caracteres, incluindo letras e numeros"
+                required/>
 
+                <span id="senhaum" class="material-symbols-outlined">Add commentMore actions
+                        visibility
+                    </span>
+            </div>
                <a href="#"> Esqueceu sua senha ?</a>
                <button id="botaologin">Entrar</button>
               

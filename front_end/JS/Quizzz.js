@@ -20,7 +20,7 @@ async function loadQuestion() {
     }
 
     try {
-        const resposta = await fetch("http://192.168.1.9:3000/Bperguntas", {
+        const resposta = await fetch("http://localhost:3000/Bperguntas", {
             
         });
 
