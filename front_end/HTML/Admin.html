@@ -26,40 +26,47 @@
       <form method="post">
         <div class="doistercos">
           <p>Pergunta:</p>
-          <textarea placeholder="Seu enunciado aqui.." id="enunciado" maxlength="200" rows="10"></textarea>
-         
-
-          <p>Nível da Pergunta:</p>
-          <div id="alter">
-            
-            <label>
-              <p>Facil</p>
-              <input type="radio" name="dificuldade" value="facil" id="dificuldade"> <!--  ALTEREI name de "nivel" para "dificuldade" e adicionei id -->
-            </label>
-            <label>
-             <p>Médio</p>
-              <input type="radio" name="dificuldade" value="medio"> 
-            </label>
-            <label>
-              <p>Dificil</p>
-              <input type="radio" name="dificuldade" value="dificil">
-            </label>
-          </div>
-          
+          <textarea placeholder="Seu enunciado aqui.." id="enunciado" maxlength="200" rows="10">
+          </textarea>
+  
           Alternativas:    
           <section id="conteudo"><br>
             <input type="text" name="alternativas" id="alternativa_a" size="40" maxlength="100"/><br> <!--  ALTEREI id de opcaoa → a -->
             <input type="text" name="alternativas" id="alternativa_b" size="40" maxlength="100"/><br> <!--  ALTEREI id de opcaob → b -->
             <input type="text" name="alternativas" id="alternativa_c" size="40" maxlength="100"/><br> <!--  ALTEREI id de opcaoC → c -->
             <input type="text" name="alternativas" id="alternativa_d" size="40" maxlength="100"/><br> <!--  ALTEREI id de opcaoD → d -->
-          </section>
-
-        </div>
-
-        <div>
+            
+            <div id="Alternativas_Corretas">
+              <p>alternativa correta</p>
+            <label class="corretas">
+              <p>A</p>
+              <input type="radio" name="correta" value="alternativa_a" id="dificuldade"> <!--  ALTEREI name de "nivel" para "dificuldade" e adicionei id -->
+            </label>
+            
+            <label class="corretas">
+             <p>B</p>
+              <input type="radio" name="correta" value="alternativa_b"> 
+            </label>
+            
+            <label class="corretas">
+              <p>C</p>
+              <input type="radio" name="correta" value="alternativa_c">
+            
+            </label class="corretas">
+              <p>D</p>
+              <input type="radio" name="correta" value="alternativa_d">
+            </label>
+            </div>
+            
+          
+          </div>
+          <div>
           <input type="submit" id="cadastrar" value="Salvar" /> <!--  ALTEREI  id="cadastrar" -->
         </div>
+          </section>
+        </div>
       </form>
+      
     </section>
 
     <section class="painel importante">

@@ -8,8 +8,8 @@ botao.addEventListener('click', async function(event){
   const alternativa_b = document.querySelector('#alternativa_b').value;
   const alternativa_c = document.querySelector('#alternativa_c').value;
   const alternativa_d = document.querySelector('#alternativa_d').value;
-  const correta = document.querySelector('#correta').value;
-  
+  const correta = document.querySelector('input[name="correta"]:checked')?.value;
+ 
 
   const res = await fetch('http://localhost:3000/perguntas',{
 
@@ -176,17 +176,17 @@ openButtons.forEach((botaoeditar) => { //pega qual dos botões foram selecionado
 const closeButtons = document.querySelectorAll('.close-modal');
 closeButtons.forEach((button)=>{
 
-    button.addEventListener('click', () =>{
-        const modalId = button.getAttribute("data-modal"); 
-        const modal = document.getElementById(modalId); 
-        modal.close(); //fechar modal
-    })
+      try{
+        
+        button.addEventListener('click', () =>{
+          const modalId = button.getAttribute("data-modal"); 
+          const modal = document.getElementById(modalId); 
+          modal.close(); //fechar modal
+        })
 
       }
       catch(error){
         
       }
-      // Monta o card
-  card.append(questionTitle, hiddenIdInput, alternatives, correctAnswer, deleteButton, editbutton);
-    questionList.appendChild(card);  
-    }
+    })
+  }
