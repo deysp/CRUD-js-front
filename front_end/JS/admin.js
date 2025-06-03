@@ -190,3 +190,6 @@ closeButtons.forEach((button)=>{
       }
     })
   }
+  catch(erro){
+    console.log(erro)
+  }}
