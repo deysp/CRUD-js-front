@@ -482,3 +482,20 @@ p{
   color: #fff;
   font-size: 20px;
 }
+
+
+/* Estilo do modal */
+dialog {
+  border: none; /* Remove a borda */
+  border-radius: 10px; /* Torna as bordas do modal arredondadas */
+  max-width: 600px; /* Define a largura máxima do modal */
+  width: 90%; /* Define a largura como 90% da tela */
+  padding: 20px #0A2472; /* Define o padding interno e a cor de fundo */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Adiciona sombra ao modal */
+}
+
+/* Layout do modal */
+.modal-container {
+  display: flex; /* Torna o container flexível */
+  gap: 20px; /* Adiciona espaço entre os itens dentro do modal */
+}

@@ -142,7 +142,7 @@ if (questoes.correta === "alternativa_a") {
     const editbutton = document.createElement("button");
     editbutton.innerText = "Editar";
     editbutton.classList.add("edit-button");
-    const botaoeditar = document.querySelectorAll('.edit-button')
+    
     // !MODAL!
      
     try {
@@ -162,7 +162,7 @@ if (questoes.correta === "alternativa_a") {
     
     })
 
-
+const botaoeditar = document.querySelectorAll('.edit-button')
 const openButtons = document.querySelectorAll('.open-modal');
 openButtons.forEach((botaoeditar) => { //pega qual dos botões foram selecionados da class .open-modal
 
@@ -173,6 +173,14 @@ openButtons.forEach((botaoeditar) => { //pega qual dos botões foram selecionado
 // !!!
 })
 })
+const closeButtons = document.querySelectorAll('.close-modal');
+closeButtons.forEach((button)=>{
+
+    button.addEventListener('click', () =>{
+        const modalId = button.getAttribute("data-modal"); 
+        const modal = document.getElementById(modalId); 
+        modal.close(); //fechar modal
+    })
 
       }
       catch(error){
