@@ -86,9 +86,10 @@ input{
     border-radius: 5px;
     border: 1px solid #ccc; /* Contorno suave */
     outline: none;
-} */
+    font-size: 16px;
+} 
 
-More actions
+
 .input-wrapper {
     display: flex;
     align-items: center;

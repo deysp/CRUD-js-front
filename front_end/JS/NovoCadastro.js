@@ -169,9 +169,3 @@ senhaconf.addEventListener("click", () => {
   inputconf.type = isPassword ? 'text' : 'password'
   senhaconf.textContent = isPassword ? 'visibility_off' : 'visibility'
 })
-
-senhaconf.addEventListener("click", () => {
-  const isPassword = inputconf.type === 'password'
-  inputconf.type = isPassword ? 'text' : 'password'
-  senhaconf.textContent = isPassword ? 'visibility_off' : 'visibility'
-})
