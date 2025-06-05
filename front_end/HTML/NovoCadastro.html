@@ -42,9 +42,9 @@
                name="senha" 
                placeholder="Digite sua senha"
                minlength="8"
-                maxlength="8"
-                pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
-                title="A senha deve ter 8 caracteres, incluindo letras e numeros"
+               maxlength="8"
+               pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
+               title="Senha deve conter 8 caracteres, incluindo maiúsculas, minúsculas, números e símbolos"
                 required/>
                  <span id="senhaCadastro" class="material-symbols-outlined">
                         visibility
@@ -58,10 +58,11 @@
                name="sneha de Confirmação" 
                placeholder="Confirme sua senha"
                minlength="8"
-                maxlength="8"
-               title="A confirmação deve ter 8 caracteres, incluindo letras e numeros"
-                required 
-                />
+               maxlength="8"
+               pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
+               title="Senha deve conter 8 caracteres, incluindo maiúsculas, minúsculas, números e símbolos"
+               required />
+
                  <span id="senhaconf" class="material-symbols-outlined">
                         visibility
                     </span>
@@ -83,31 +84,36 @@
                </div>
              
           
-               <input 
-               id="email" 
-               type="email" 
-               name="email" 
-               placeholder="Digite seu email" 
-               pattern="^[^\s@]{1,}@[^@\s]{2,}\.[^\s@]{2,}$"
-                title="o e-mail deve conter @"
+                <input 
+                id="email" 
+                type="email" 
+                name="email" 
+                placeholder="Digite seu email" 
+                title="O e-mail deve conter um formato válido, como exemplo@dominio.com"
                 required/>
-            <div class="input-wrapper" >
-               <input 
-               id="senha" 
-               type="password" 
-               name="senha" 
-               placeholder="Digite sua senha" 
+
+                <div class="input-wrapper" >
+                <input 
+                id="senha" 
+                type="password" 
+                name="senha" 
+                placeholder="Digite sua senha" 
                 minlength="8"
                 maxlength="8"
                 pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
-                title="A senha deve ter 8 caracteres, incluindo letras e numeros"
+                title="Senha deve conter 8 caracteres, incluindo maiúsculas, minúsculas, números e símbolos"
                 required/>
 
                 <span id="senhaum" class="material-symbols-outlined">
                         visibility
                     </span>
             </div>
+<<<<<<< HEAD
                
+=======
+
+               <a href="#"> Esqueceu sua senha ?</a>
+>>>>>>> a3b9aad317e3a416cad00f65d2e50d343b33a84e
                <button id="botaologin">Entrar</button>
               
            </form> 

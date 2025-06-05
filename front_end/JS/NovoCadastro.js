@@ -30,12 +30,12 @@ document.querySelector("#botaologin").addEventListener("click", async (event) =>
 
    
     if (!senhaRegex.test(senha)) {
-        alert("A senha  deve ter entre 3 e 8 caracteres");
+        alert("A senha deve ter 8 caracteres, incluindo maiúsculas, minúsculas, números e símbolos.");
         return;
     }
 
     if (!emailRegex.test(email)) {
-        alert("O email Deve ter entre 3 e 15 caracteres");
+          alert("Digite um e-mail válido contendo @ e domínio.");
         return;
     } 
     
@@ -61,13 +61,8 @@ document.querySelector("#botaologin").addEventListener("click", async (event) =>
 
 
                   if (data === 'professor') {
-            
-                    // Redireciona para a página do administrador
-                    alert('Bem-vindo, professor!');
-                    window.location.replace('../HTML/Admin.html');
+                  window.location.replace('../HTML/Admin.html');
                 } else {
-                    // Redireciona para a página do aluno
-                    alert('Bem-vindo, aluno!');
                     window.location.replace('../HTML/Quizzz.html');
                 }
             } 
@@ -114,8 +109,18 @@ document.querySelector("#cadastrar").addEventListener("click", async (event) => 
     return;
   }
 
-  if (senha.length > 8) {
-    alert("As senhas devem ter no máximo 8 caracteres");
+  // Validação de email e senha adicionadas abaixo 👇
+
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  const senhaRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8}$/;
+
+  if (!emailRegex.test(email)) {
+    alert("Digite um e-mail válido contendo @ e domínio.");
+    return;
+  }
+
+  if (!senhaRegex.test(senha)) {
+    alert("A senha deve ter 8 caracteres, incluindo maiúsculas, minúsculas, números e símbolos.");
     return;
   }
 
@@ -139,6 +144,7 @@ document.querySelector("#cadastrar").addEventListener("click", async (event) => 
     alert("Erro ao tentar cadastrar. Tente novamente mais tarde.");
   }
 });
+
 
 // Mostrar/esconder senha login
 const senhaLogin = document.getElementById("senhaum")
