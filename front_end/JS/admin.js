@@ -152,12 +152,25 @@ document.getElementById("salvar-edicao").addEventListener("click", async (event)
     alternativa_d: document.getElementById("edit-d").value.trim(),
     correta: document.getElementById("edit-correta").value
   };
-
-  await fetch(`http://localhost:3000/perguntas/${id_pergunta}`, {
+try{
+ const response = await fetch(`http://localhost:3000/perguntas/${id_pergunta}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(atualizado)
   });
+  if(response.ok ){
+      alert("Editado com sucesso!")
+      loadQuestions()
+      
+  }
+  else{
+    alert('Erro')
+  }
+}
+catch(error){
+  console.log('Erro ao Editar', error)
+}
+  
 
   document.getElementById("modal-editar").close();
   loadQuestions();
