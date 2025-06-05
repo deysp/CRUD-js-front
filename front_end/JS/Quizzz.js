@@ -6,12 +6,14 @@ const proxima = document.querySelector("#proximo");
 const mensagem = document.querySelector("#mensagem");
 const contador = document.querySelector("#contador");
 const acertosSpan = document.querySelector("#acertos");
+const reiniciar = document.querySelector("#reiniciar");
 
 let respostaCorreta = "";
 let acertos = 0;
 let contadorQuestoes = 0;
 const limiteQuestoes = 10;
 
+// Função para carregar a próxima questão
 async function loadQuestion() {
   if (contadorQuestoes >= limiteQuestoes) {
     proxima.disabled = true;
@@ -19,20 +21,24 @@ async function loadQuestion() {
     opcoes.style.display = "none";
     contador.style.display = "none";
     questao.style.display = "none";
-   const comemorar = document.createElement("img");
-comemorar.src = "/projeto_quiz_frontend/imagens/comemoracao.gif"; // Verifique o caminho correto
-comemorar.alt = "Imagem de comemoração"; // Adicione um atributo alt por acessibilidade
-comemorar.style.display = "block"; // Certifique-se de que a imagem seja exibida
-    comemorar.style.margin = "0 auto"; // Centraliza a imagem 
-comemorar.style.width = "300px"; // Ajuste o tamanho conforme necessário
-    comemorar.style.height = "auto"; // Mantém a proporção da imagem  
-mensagem.innerHTML = `<div style="text-align: center;"><strong>Quiz finalizado! Você acertou ${acertos} de ${limiteQuestoes} questões.</strong></div>`;
-mensagem.appendChild(comemorar); // Adicione ao body (ou elemento específico)
 
+    const comemorar = document.createElement("img");
+    comemorar.src = "/projeto_quiz_frontend/imagens/comemoracao.gif"; // Verifique o caminho correto
+    comemorar.alt = "Imagem de comemoração"; // Adicione um atributo alt por acessibilidade
+    comemorar.style.display = "block"; // Certifique-se de que a imagem seja exibida
+    comemorar.style.margin = "0 auto"; // Centraliza a imagem
+    comemorar.style.width = "300px"; // Ajuste o tamanho conforme necessário
+    comemorar.style.height = "auto"; // Mantém a proporção da imagem
+    mensagem.innerHTML = `<div style="text-align: center;"><strong>Quiz finalizado! Você acertou ${acertos} de ${limiteQuestoes} questões.</strong></div>`;
+    mensagem.appendChild(comemorar);
+    // Adicione ao body (ou elemento específico)
+    reiniciar.disabled = false;
+    reiniciar.style.display = "block"; // Certifique-se de que a imagem seja exibida
     return;
   }
 
   try {
+    reiniciar.style.display = "none"; // Certifique-se de que a imagem seja exibida
     const resposta = await fetch("http://localhost:3000/perguntas", {});
     const questaoAtual = await resposta.json();
     console.log(questaoAtual);
@@ -57,6 +63,7 @@ mensagem.appendChild(comemorar); // Adicione ao body (ou elemento específico)
   }
 }
 
+// Função para verificar a resposta selecionada
 function verificarResposta() {
   const opcoesMarcadas = document.querySelector(
     'input[name="resposta"]:checked'
@@ -75,6 +82,7 @@ function verificarResposta() {
   return true;
 }
 
+// Botão de próxima questão
 proxima.addEventListener("click", (event) => {
   event.preventDefault();
   const Respondida = verificarResposta();
@@ -83,4 +91,13 @@ proxima.addEventListener("click", (event) => {
     return;
   }
   loadQuestion();
+});
+
+// Botão de reiniciar
+reiniciar.addEventListener("click", (event) => {
+  window.location.reload();
+  event.preventDefault();
+  respostaCorreta = "";
+  acertos = 0;
+  contadorQuestoes = 0;
 });

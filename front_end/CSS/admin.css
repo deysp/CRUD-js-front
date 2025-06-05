@@ -29,6 +29,7 @@ body.login {
 .warn {
   color: #fff;
   font-size: 20px;
+  
 }
 
 /* header */
@@ -36,10 +37,9 @@ body.login {
 header[role="banner"] {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: start;
   gap: 15px;
   padding-left: 90px; /* Deixa espaço para a imagem com position absolute */
-  position: relative;
   height: 100px; /* Altura suficiente para conter a imagem */
   background: white;
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15);
@@ -423,7 +423,7 @@ td {
 .card-correct-answer {
   font-size: 1rem;
   font-weight: bold;
-  color: #A6E1FA;
+  color: green;
   margin-top: 1rem;
 }
 
@@ -495,7 +495,48 @@ dialog {
 }
 
 /* Layout do modal */
-.modal-container {
-  display: flex; /* Torna o container flexível */
-  gap: 20px; /* Adiciona espaço entre os itens dentro do modal */
+
+
+#Alternativas_Corretas{
+width: 30%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+ 
+}
+
+/* Estilo para botões do modal */
+#modal-editar button {
+  padding: 0.7em 2em;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin: 0.5rem;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+/* Botão Salvar */
+#salvar-edicao {
+  background-color: #0A2472;
+  color: white;
+  border-bottom: 3px solid #081d5a;
+}
+
+#salvar-edicao:hover {
+  background-color: #1b4db1;
+  transform: scale(1.05);
+}
+
+/* Botão Fechar */
+.close-modal {
+  background-color: #a1a1a1;
+  color: white;
+  border-bottom: 3px solid #808080;
+}
+
+.close-modal:hover {
+  background-color: #7a7a7a;
+  transform: scale(1.05);
 }
