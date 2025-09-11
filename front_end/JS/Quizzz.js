@@ -14,6 +14,8 @@ const limiteQuestoes = 10;
 let questoesAnteriores = []; // guarda os IDs das questões já usadas
 let questaoAtualGlobal = null; // guarda a questão atual exibida
 let idUser = localStorage.getItem("id_user") || 0;
+let respostasUsuario = []; // armazena todas as respostas até o final
+
 // Função para não repetir questões
 function naoRepetirQuestoes(questaoAtual, questoesAnteriores) {
   return !questoesAnteriores.includes(questaoAtual.id_quest);
@@ -22,30 +24,49 @@ function naoRepetirQuestoes(questaoAtual, questoesAnteriores) {
 // Função para carregar a próxima questão
 async function loadQuestion() {
   if (contadorQuestoes >= limiteQuestoes) {
-    proxima.disabled = true;
-    proxima.style.display = "none";
-    opcoes.style.display = "none";
-    contador.style.display = "none";
-    questao.style.display = "none";
+    try {
+      const resposta = await fetch("http://localhost:3000/perguntas/correcao", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          id_user: idUser,
+          respostas: respostasUsuario,
+        }),
+      });
 
-    const comemorar = document.createElement("img");
-    comemorar.src = "../../imagens/comemoracao.gif";
-    comemorar.alt = "Imagem de comemoração";
-    comemorar.style.display = "block";
-    comemorar.style.margin = "0 auto";
-    comemorar.style.width = "300px";
-    comemorar.style.height = "auto";
+      const resultado = await resposta.json();
 
-    mensagem.innerHTML = `
-      <div style="text-align: center;">
-        <strong>Quiz finalizado! Você marcou ${acertos} de ${limiteQuestoes} acertos (validação servidor).</strong>
-      </div>
-    `;
-    mensagem.appendChild(comemorar);
+      proxima.disabled = true;
+      proxima.style.display = "none";
+      opcoes.style.display = "none";
+      contador.style.display = "none";
+      questao.style.display = "none";
 
-    reiniciar.disabled = false;
-    reiniciar.style.display = "block";
-    return;
+      const comemorar = document.createElement("img");
+      comemorar.src = "../../imagens/comemoracao.gif";
+      comemorar.alt = "Imagem de comemoração";
+      comemorar.style.display = "block";
+      comemorar.style.margin = "0 auto";
+      comemorar.style.width = "300px";
+      comemorar.style.height = "auto";
+
+      mensagem.innerHTML = `
+        <div style="text-align: center;">
+          <strong>Quiz finalizado! Você acertou ${resultado.acertosTentativa} de ${limiteQuestoes}.</strong>
+        </div>
+      `;
+      mensagem.appendChild(comemorar);
+      console.log(resultado);
+
+      reiniciar.disabled = false;
+      reiniciar.style.display = "block";
+      return;
+    } catch (error) {
+      console.error("Erro ao enviar respostas finais:", error);
+      mensagem.innerHTML =
+        "<p style='color:red;'>Erro ao enviar respostas para o servidor.</p>";
+      return;
+    }
   }
 
   try {
@@ -73,11 +94,11 @@ async function loadQuestion() {
     contador.innerText = `Questão ${contadorQuestoes} de ${limiteQuestoes}`;
 
     opcoes.innerHTML = `
-      <label><input type="radio" name="resposta" value="alt_a"> A) ${questoes.alt_a}</label><br>
-      <label><input type="radio" name="resposta" value="alt_b"> B) ${questoes.alt_b}</label><br>
-      <label><input type="radio" name="resposta" value="alt_c"> C) ${questoes.alt_c}</label><br>
-      <label><input type="radio" name="resposta" value="alt_d"> D) ${questoes.alt_d}</label><br>
-      <label><input type="radio" name="resposta" value="alt_e"> E) ${questoes.alt_e}</label><br>
+      <label><input type="radio" name="resposta" value="alt_a">A) ${questoes.alt_a}</label><br>
+      <label><input type="radio" name="resposta" value="alt_b">B) ${questoes.alt_b}</label><br>
+      <label><input type="radio" name="resposta" value="alt_c">C) ${questoes.alt_c}</label><br>
+      <label><input type="radio" name="resposta" value="alt_d">D) ${questoes.alt_d}</label><br>
+      <label><input type="radio" name="resposta" value="alt_e">E) ${questoes.alt_e}</label><br>
     `;
 
     mensagem.innerHTML = "";
@@ -87,8 +108,8 @@ async function loadQuestion() {
   }
 }
 
-// Função para verificar a resposta selecionada e já enviar ao backend
-async function verificarResposta() {
+// Função para verificar a resposta selecionada e armazenar no array
+function verificarResposta() {
   const opcoesMarcadas = document.querySelector(
     'input[name="resposta"]:checked'
   );
@@ -99,40 +120,22 @@ async function verificarResposta() {
     return false;
   }
 
-  const respostaSelecionada = opcoesMarcadas.value;
+  const respostaSelecionada = opcoesMarcadas.value.split("_")[1]; // extrai apenas a letra da resposta
+  console.log(respostaSelecionada);
 
-  try {
-    const resposta = await fetch("http://localhost:3000/perguntas/correcao", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        id_user: idUser,
-        id_quest: questaoAtualGlobal.id_quest,
-        resposta: respostaSelecionada,
-      }),
-    });
+  // Armazena no array de respostas do usuário
+  respostasUsuario.push({
+    id_quest: questaoAtualGlobal.id_quest,
+    resposta: respostaSelecionada,
+  });
 
-    const resultado = await resposta.json();
-
-    if (resultado.correta) {
-      acertos++;
-    }
-
-    acertosSpan.innerText = acertos;
-
-    return true;
-  } catch (error) {
-    console.error("Erro ao registrar resposta:", error);
-    mensagem.innerHTML +=
-      '<p style="color:red;">Erro ao enviar resposta para o servidor.</p>';
-    return false;
-  }
+  return true;
 }
 
 // Botão de próxima questão
 proxima.addEventListener("click", async (event) => {
   event.preventDefault();
-  const Respondida = await verificarResposta();
+  const Respondida = verificarResposta();
   if (!Respondida) {
     return;
   }
@@ -146,4 +149,7 @@ reiniciar.addEventListener("click", (event) => {
   acertos = 0;
   contadorQuestoes = 0;
   questoesAnteriores = [];
+  respostasUsuario = [];
 });
+
+//voltar qe
