@@ -1,7 +1,7 @@
 /* Estilos Globais ================================================== */
 /* Tema Claro */
 body {
-  background-color: #468ad8;
+  background-color: #005f99  ;
   color: #000000;
   transition: background-color 0.3s, color 0.3s;
 }
