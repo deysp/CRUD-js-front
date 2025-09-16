@@ -56,7 +56,7 @@ document
       if (response.status == 200) {
         console.log(data);
 
-        if (data === "2") {
+        if (data.funcao == "2") {
           window.location.replace("../HTML/Admin.html");
         } else {
           localStorage.setItem("id_user", data.id_user);
