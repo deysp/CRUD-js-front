@@ -18,23 +18,33 @@
      <div class="title">
              <h1>Quiz da Atualidade</h1>
         </div>
-    <div id="quiz">
-        <!-- Contador de questões e acertos -->
-        <div id="contador">Questão 0 de 40</div>
-        <div id="acertos"></div>
-        <!-- Área da pergunta e opções -->
-        <div id="questao"></div>
-        <div id="opcoes"></div>   
-        <!-- mensagem -->
-        <div id="mensagem"></div>
-        <!-- Botão para próxima pergunta -->
-        <button type="button" id="proximo">Próximo</button>
-        <button type="button" id="reiniciar" disabled>Reiniciar Quiz</button>
         
-       
+         
+        <div id="quiz">
+            <!-- Contador de questões e acertos -->
+            <div id="contador">Questão 0 de 40</div>
+            <div id="acertos"></div>
+            <!-- Área da pergunta e opções -->
+            <div id="questao"></div>
+            <div id="opcoes"></div>   
+            <!-- mensagem -->
+            <div id="mensagem"></div>
+            <!-- Botão para próxima pergunta -->
+            <button type="button" id="proximo">Próximo</button>
+            <button type="button" id="reiniciar" disabled>Reiniciar Quiz</button>
+        
+        </div>
+        <!-- Card de Ranking -->
+    <div class="ranking">
+        <h2>🏆 Ranking</h2>
+        <ul id="ranking-list">
+        <!-- preenchido via Js -->
+    </ul>
+    </div>   
 
-    </div>
+  
 <script src="../JS/Quizzz.js"> </script>
+<script src="../JS/ranking.js" defer></script>
 <script src="../Tema/Tema.js" defer></script>
 </body>
 </html>

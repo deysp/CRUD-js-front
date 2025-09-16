@@ -7,6 +7,7 @@ const mensagem = document.querySelector("#mensagem");
 const contador = document.querySelector("#contador");
 const acertosSpan = document.querySelector("#acertos");
 const reiniciar = document.querySelector("#reiniciar");
+const ranking = document.querySelector(".ranking");
 
 let acertos = 0;
 let contadorQuestoes = 0;
@@ -36,12 +37,14 @@ async function loadQuestion() {
 
       const resultado = await resposta.json();
 
+      // Esconde partes do quiz
       proxima.disabled = true;
       proxima.style.display = "none";
       opcoes.style.display = "none";
       contador.style.display = "none";
       questao.style.display = "none";
 
+      // Mensagem de finalização
       const comemorar = document.createElement("img");
       comemorar.src = "../../imagens/comemoracao.gif";
       comemorar.alt = "Imagem de comemoração";
@@ -51,15 +54,26 @@ async function loadQuestion() {
       comemorar.style.height = "auto";
 
       mensagem.innerHTML = `
-        <div style="text-align: center;">
+        <div style="text-align: center; margin-bottom: 15px;">
           <strong>Quiz finalizado! Você acertou ${resultado.acertosTentativa} de ${limiteQuestoes}.</strong>
         </div>
       `;
       mensagem.appendChild(comemorar);
-      console.log(resultado);
 
+      // Exibir botão reiniciar
       reiniciar.disabled = false;
       reiniciar.style.display = "block";
+      ranking.style.display = "flex";
+
+      // Exibir ranking dentro do card azul
+      const rankingSection = document.getElementById("ranking-section");
+      rankingSection.style.display = "block";
+
+      // Chama a função do outro script (ranking.js)
+      if (typeof carregarAcertos === "function") {
+        carregarAcertos();
+      }
+
       return;
     } catch (error) {
       console.error("Erro ao enviar respostas finais:", error);
@@ -71,6 +85,7 @@ async function loadQuestion() {
 
   try {
     reiniciar.style.display = "none";
+
     const resposta = await fetch("http://localhost:3000/perguntas");
     const questaoAtual = await resposta.json();
 
@@ -121,7 +136,6 @@ function verificarResposta() {
   }
 
   const respostaSelecionada = opcoesMarcadas.value.split("_")[1]; // extrai apenas a letra da resposta
-  console.log(respostaSelecionada);
 
   // Armazena no array de respostas do usuário
   respostasUsuario.push({
@@ -151,5 +165,3 @@ reiniciar.addEventListener("click", (event) => {
   questoesAnteriores = [];
   respostasUsuario = [];
 });
-
-//voltar qe

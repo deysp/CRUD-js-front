@@ -10,6 +10,9 @@ signUpButton.addEventListener("click", () => {
 signInButton.addEventListener("click", () => {
   main.classList.remove("right-panel-active");
 });
+signInButton.addEventListener("click", () => {
+  main.classList.remove("right-panel-active");
+});
 
 // login de usuario
 document
@@ -85,10 +88,6 @@ document
     }
   });
 
-signInButton.addEventListener("click", () => {
-  main.classList.remove("right-panel-active");
-});
-
 // cadastro
 document
   .querySelector("#cadastrar")
@@ -113,8 +112,8 @@ document
 
     // Validação de email e senha adicionadas abaixo 👇
 
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    const senhaRegex = /^(?=.[a-z])(?=.[A-Z])(?=.\d)(?=.[\W_]).{8}$/;
+    const emailRegex = /^[a-zA-Z0-9.%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/; // Entre 3 e 15 caracteres, letras, números ou ""
+    const senhaRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/; // Entre 6 e 8 caracteres, 1 maiúscula, 1 minúscula, 1 número e 1 caractere especial
 
     if (!emailRegex.test(email)) {
       alert("Digite um e-mail válido contendo @ e domínio.");

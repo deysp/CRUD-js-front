@@ -18,15 +18,11 @@ body {
   font-family: Arial, sans-serif;
 }
 
-
-
 .title {
     text-align: center;  /* mantém o título centralizado */
     margin-top: 125px;
     font-size: 21px;
 }
-
-
 
 .logo-container {
     position: fixed;   /* fixa na tela mesmo com scroll */
@@ -78,7 +74,6 @@ body {
     border-radius: 50%;
 }
 
-
 #quiz {
     max-width: 700px;
     margin: 0 auto;
@@ -95,8 +90,8 @@ body {
 h1 {
     text-align: center;
     color: #fff;
-    
 }
+
 #question {
     text-align: center;
     font-size: 20px;
@@ -112,12 +107,14 @@ h1 {
     gap: 10px;
     grid-template-columns: repeat(5, 1fr);
 }
+
 button {
     width: 40%;
     display: block;
     margin: 0 auto;
     font-size: 20px;
     margin-bottom: 8px;
+    margin-top: 20px;
     background: linear-gradient(135deg, #5cb6f9, #5cb6f9); /* gradiente moderno */
     padding: 13px;
     background-color: #839abc;
@@ -126,11 +123,12 @@ button {
     border-radius: 10px;
     cursor: pointer;
 }
+
 button:hover {
     background-color: #7290bb;
     transform: scale(1.05);
-      background: linear-gradient(135deg, #2baaff, #4164ff); /* inverte gradiente */
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    background: linear-gradient(135deg, #2baaff, #4164ff); /* inverte gradiente */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
 }
 
 li {
@@ -138,11 +136,9 @@ li {
     margin: 0;
     padding: 0;
     align-items: end;
-  }
+}
 
-
-
-   li {
+li {
     position: relative;
     padding-left: 1.2em;
     margin: 0.5em 0;
@@ -152,12 +148,11 @@ li {
     color: blue;
     font-size: 20px;
     text-align: end;
-  }
+}
 
-  .logout a:before {
+.logout a:before {
     content: "";
-    
-  }
+}
  
 /* Botão de sair moderno */
 .logout {
@@ -196,4 +191,89 @@ li {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
 }
 
-  
+/* ================== RANKING CARD ================== */
+.ranking {
+  background-color: #005f99;
+  color: #fff;
+  border-radius: 12px;
+  padding: 15px;
+  width: 200px;       /* menor */
+  min-height: 280px;  /* menor */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+display: none;
+  /* posiciona no lado direito da tela */
+  position: absolute;
+  top: 210px;   /* mesmo valor do margin-top do quiz */
+  right: 80px; /* distância da borda direita */
+}
+
+.ranking h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  text-align: center;
+  font-weight: bold;
+}
+
+#ranking-list {
+  width: 90%; 
+  text-align: left;
+}
+.ranking-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;   /* agora alinha à esquerda */
+  text-align: left; 
+}
+#ranking-list li {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: left;
+  gap: 2px;
+  font-size: 14px;
+  padding: 6px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  min-height: 40px;
+  text-align: left;
+}
+
+#ranking-list li:hover {
+  background: rgba(255, 255, 255, 0.12);
+  transform: translateY(-10px);
+}
+
+.ranking li .nome-container {
+  font-size: 14px;
+  color: white;
+  font-weight: bold;
+  text-align: left;
+  min-width: 140px;
+}
+
+.ranking li .pontuacao-container {
+ font-size: 16px;
+  font-weight: normal;
+  margin-top: 5px;
+  min-width: 180px;
+  text-align: center;
+  color: #fff; /* fica branco igual ao resto do texto */
+}
+
+.ranking li span.pontos {
+  font-weight: bold;
+  color: #FFD700;
+  margin-left: 4px;
+}
+
+.subtitle {
+  font-size: 18px;
+  margin-top: 12px;
+  color: #f5f5f5;
+  line-height: 1.5;
+  max-width: 600px;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.25);
+}

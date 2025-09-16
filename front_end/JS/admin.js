@@ -1,59 +1,68 @@
-document.addEventListener("DOMContentLoaded", loadQuestions);
+document.addEventListener("DOMContentLoaded", () => {
+  loadQuestions();
 
-const botao = document.querySelector("#cadastrar");
-botao.addEventListener("click", async function (event) {
-  event.preventDefault();
+  const botao = document.querySelector("#cadastrar");
+  botao.addEventListener("click", async function (event) {
+    event.preventDefault();
 
-  const enunciado = document.querySelector("#enunciado").value;
-  const alternativa_a = document.querySelector("#alternativa_a").value;
-  const alternativa_b = document.querySelector("#alternativa_b").value;
-  const alternativa_c = document.querySelector("#alternativa_c").value;
-  const alternativa_d = document.querySelector("#alternativa_d").value;
-  const alternativa_e = document.querySelector("#alternativa_e").value;
-  const correta = document.querySelector("#Correta").value;
+    const enunciado = document.querySelector("#enunciado").value.trim();
+    const alternativas = [
+      document.querySelector("#a").value.trim(),
+      document.querySelector("#b").value.trim(),
+      document.querySelector("#c").value.trim(),
+      document.querySelector("#d").value.trim(),
+      document.querySelector("#e").value.trim(),
+    ];
 
-  if (
-    !enunciado ||
-    !alternativa_a ||
-    !alternativa_b ||
-    !alternativa_c ||
-    !alternativa_d ||
-    !alternativa_e ||
-    !correta
-  ) {
-    alert("Todos os campos são obrigatórios");
-    return;
-  }
+    const correta = document
+      .querySelector("#Correta")
+      .value.trim()
+      .slice(-1)
+      .toLowerCase();
+    // "A" => "a", "B" => "b", etc.
 
-  const res = await fetch("http://localhost:3000/perguntas", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      enunciado,
-      alt_a: alternativa_a,
-      alt_b: alternativa_b,
-      alt_c: alternativa_c,
-      alt_d: alternativa_d,
-      alt_e: alternativa_e,
-      correta,
-    }),
+    // Verifica se todos os campos estão preenchidos
+    if (!enunciado || alternativas.some((a) => a === "") || !correta) {
+      alert("Todos os campos são obrigatórios");
+      return;
+    }
+
+    try {
+      // Aqui enviamos alternativas como string única separada por ";"
+      const res = await fetch("http://localhost:3000/perguntas", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          enunciado,
+          alternativas: alternativas.join(";"), // "altA;altB;altC;altD;altE"
+          correta, // só a letra "a", "b", etc
+          imagem: null,
+        }),
+      });
+
+      const data = await res.json().catch(() => ({}));
+
+      if (res.status === 201) {
+        alert("Questão adicionada com sucesso");
+        await loadQuestions();
+        document.querySelector("form").reset();
+      } else if (res.status === 409) {
+        alert(data.message || "A questão já existe");
+        await loadQuestions();
+      } else if (res.status === 400) {
+        alert(data.message || "Dados incompletos");
+      } else {
+        alert("Erro desconhecido: " + res.status);
+        console.error("Erro ao cadastrar:", res.status, data);
+      }
+    } catch (error) {
+      console.error("Erro na requisição:", error);
+      alert("Erro na comunicação com o servidor");
+    }
   });
-
-  if (res.status === 201) {
-    alert("Questão adicionada com sucesso");
-    loadQuestions();
-    document.querySelector("form").reset();
-  } else if (res.status === 409) {
-    alert("A questão já existe");
-    loadQuestions();
-  } else if (res.status === 500) {
-    alert("Erro inesperado");
-  } else {
-    console.error("Erro ao cadastrar:", res.status);
-  }
 });
 
-//*Carregar questões
+// Carregar questões
 async function loadQuestions() {
   const questionList = document.getElementById("questionList");
   questionList.innerHTML = "";
@@ -62,47 +71,39 @@ async function loadQuestions() {
     const response = await fetch("http://localhost:3000/perguntas");
     const questions = await response.json();
 
-    questions.forEach((questoes) => {
-      addQuestionToPage(questoes);
+    questions.forEach((questao) => {
+      addQuestionToPage(questao);
     });
   } catch (error) {
     console.error("Erro ao carregar perguntas:", error);
   }
 }
 
-//* Cards
-async function addQuestionToPage(questoes) {
+// Renderizar Cards
+function addQuestionToPage(questao) {
   const questionList = document.getElementById("questionList");
 
   const card = document.createElement("div");
   card.classList.add("card");
 
-  const hiddenIdInput = document.createElement("input");
-  hiddenIdInput.type = "hidden";
-  hiddenIdInput.value = questoes.id_quest;
-  hiddenIdInput.classList.add("question-id");
-
   const questionTitle = document.createElement("h3");
   questionTitle.classList.add("card-title");
-  questionTitle.innerText = `Pergunta: ${questoes.enunciado}`;
+  questionTitle.innerText = `Pergunta: ${questao.enunciado}`;
 
-  const alternatives = document.createElement("ul");
-  alternatives.classList.add("card-alternatives");
-  alternatives.innerHTML = `
-    <li>A: ${questoes.alt_a}</li>
-    <li>B: ${questoes.alt_b}</li>
-    <li>C: ${questoes.alt_c}</li>
-    <li>D: ${questoes.alt_d}</li>
-    <li>E: ${questoes.alt_e}</li>
+  // Separar alternativas usando split
+  const alternativas = questao.alternativas.split(";");
+  const alternativesList = document.createElement("ul");
+  alternativesList.classList.add("card-alternatives");
+  alternativesList.innerHTML = `
+    <li>A: ${alternativas[0]}</li>
+    <li>B: ${alternativas[1]}</li>
+    <li>C: ${alternativas[2]}</li>
+    <li>D: ${alternativas[3]}</li>
+    <li>E: ${alternativas[4]}</li>
   `;
 
-  let textoCorreto = "";
-  if (questoes.correta === "alternativa_a") textoCorreto = questoes.alt_a;
-  else if (questoes.correta === "alternativa_b") textoCorreto = questoes.alt_b;
-  else if (questoes.correta === "alternativa_c") textoCorreto = questoes.alt_c;
-  else if (questoes.correta === "alternativa_d") textoCorreto = questoes.alt_d;
-  else if (questoes.correta === "alternativa_e") textoCorreto = questoes.alt_e;
-  else textoCorreto = "Alternativa inválida";
+  const textoCorreto =
+    alternativas[{ a: 0, b: 1, c: 2, d: 3, e: 4 }[questao.correta]];
 
   const correctAnswer = document.createElement("p");
   correctAnswer.classList.add("card-correct-answer");
@@ -114,7 +115,7 @@ async function addQuestionToPage(questoes) {
   deleteButton.addEventListener("click", async () => {
     try {
       const response = await fetch(
-        `http://localhost:3000/perguntas/${questoes.id_quest}`,
+        `http://localhost:3000/perguntas/${questao.id_quest}`,
         { method: "DELETE" }
       );
       if (response.ok) {
@@ -128,77 +129,33 @@ async function addQuestionToPage(questoes) {
     }
   });
 
-  const editbutton = document.createElement("button");
-  editbutton.innerText = "Editar";
-  editbutton.classList.add("edit-button");
-
-  editbutton.addEventListener("click", () => {
+  const editButton = document.createElement("button");
+  editButton.innerText = "Editar";
+  editButton.classList.add("edit-button");
+  editButton.addEventListener("click", () => {
     const modal = document.getElementById("modal-editar");
 
-    document.getElementById("edit-enunciado").value = questoes.enunciado;
-    document.getElementById("edit-a").value = questoes.alt_a;
-    document.getElementById("edit-b").value = questoes.alt_b;
-    document.getElementById("edit-c").value = questoes.alt_c;
-    document.getElementById("edit-d").value = questoes.alt_d;
-    document.getElementById("edit-e").value = questoes.alt_e;
-    document.getElementById("edit-correta").value = questoes.correta;
+    const editAlt = alternativas; // usar split também no modal
+    document.getElementById("edit-enunciado").value = questao.enunciado;
+    document.getElementById("edit-a").value = editAlt[0];
+    document.getElementById("edit-b").value = editAlt[1];
+    document.getElementById("edit-c").value = editAlt[2];
+    document.getElementById("edit-d").value = editAlt[3];
+    document.getElementById("edit-e").value = editAlt[4];
+    document.getElementById("edit-correta").value = questao.correta;
 
     document
       .getElementById("salvar-edicao")
-      .setAttribute("data-id", questoes.id_quest);
-
+      .setAttribute("data-id", questao.id_quest);
     modal.showModal();
   });
 
   card.append(
     questionTitle,
-    hiddenIdInput,
-    alternatives,
+    alternativesList,
     correctAnswer,
     deleteButton,
-    editbutton
+    editButton
   );
   questionList.appendChild(card);
 }
-
-//* Modal
-document
-  .getElementById("salvar-edicao")
-  .addEventListener("click", async (event) => {
-    const id_quest = event.target.getAttribute("data-id");
-
-    const atualizado = {
-      enunciado: document.getElementById("edit-enunciado").value.trim(),
-      alt_a: document.getElementById("edit-a").value.trim(),
-      alt_b: document.getElementById("edit-b").value.trim(),
-      alt_c: document.getElementById("edit-c").value.trim(),
-      alt_d: document.getElementById("edit-d").value.trim(),
-      alt_e: document.getElementById("edit-e").value.trim(),
-      correta: document.getElementById("edit-correta").value,
-    };
-
-    try {
-      const response = await fetch(
-        `http://localhost:3000/perguntas/${id_quest}`,
-        {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(atualizado),
-        }
-      );
-      if (response.ok) {
-        alert("Editado com sucesso!");
-        loadQuestions();
-      } else {
-        alert("Erro ao editar");
-      }
-    } catch (error) {
-      console.log("Erro ao Editar", error);
-    }
-
-    document.getElementById("modal-editar").close();
-  });
-
-document.querySelector(".close-modal").addEventListener("click", () => {
-  document.getElementById("modal-editar").close();
-});
