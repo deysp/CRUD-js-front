@@ -193,6 +193,32 @@ li {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
 }
 
+.home{
+  position: absolute;
+  top: 15px;
+  right: 150px; /* ajustado para afastar mais */
+  z-index: 100;
+  list-style: none;
+}
+.home a {
+  display: inline-block;
+  padding: 12px 19px;
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+  background: linear-gradient(135deg, #5cb6f9, #5cb6f9); /* gradiente moderno */
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease-in-out;
+}
+.home a:hover {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #2baaff, #4164ff); /* inverte gradiente */
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
 /* ================== RANKING CARD ================== */
 .ranking {
   background-color: #005f99;
