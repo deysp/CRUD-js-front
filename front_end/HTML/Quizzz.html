@@ -6,8 +6,9 @@
     <title>Quiz Interativo</title>
     <link rel="stylesheet" type="text/css" href="../CSS/Quizzz.css">
     <link rel="stylesheet" href="../Tema/Tema.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
 </head>
-    <body>
+<body>
         
     <div class="logo-container">
         <img src="/projeto_quiz_frontend/imagens/icone.png" alt="Ícone Quiz" class="logo">
@@ -15,36 +16,45 @@
 
     <li class="logout warn"><a href="../HTML/NovoCadastro.html">Sair</a></li>
     
-     <div class="title">
-             <h1>Quiz da Atualidade</h1>
-        </div>
+    <div class="title">
+        <h1>Quiz da Atualidade</h1>
+    </div>
         
-         
-        <div id="quiz">
-            <!-- Contador de questões e acertos -->
-            <div id="contador">Questão 0 de 40</div>
-            <div id="acertos"></div>
-            <!-- Área da pergunta e opções -->
-            <div id="questao"></div>
-            <div id="opcoes"></div>   
-            <!-- mensagem -->
-            <div id="mensagem"></div>
-            <!-- Botão para próxima pergunta -->
-            <button type="button" id="proximo">Próximo</button>
-            <button type="button" id="reiniciar" disabled>Reiniciar Quiz</button>
-        
+    <div id="quiz">
+        <!-- Contador de questões e acertos -->
+        <div id="contador">Questão 0 de 0</div>
+        <div id="acertos"></div>
+        <!-- Área da pergunta e opções -->
+        <div id="questao"></div>
+        <div id="opcoes"></div>   
+        <!-- mensagem -->
+        <div id="mensagem"></div>
+
+        <!-- 🔹 Botões de navegação -->
+        <div class="quiz-buttons">
+            <button type="button" id="voltar" style="display:none;">
+                <span class="material-symbols-outlined">arrow_back</span>
+            </button>
+            <button type="button" id="proximo">
+                <span class="material-symbols-outlined">arrow_forward</span>
+            </button>
         </div>
-        <!-- Card de Ranking -->
+
+        <!-- Botão reiniciar -->
+        <button type="button" id="reiniciar" disabled>Reiniciar Quiz</button>
+    </div>
+
+    <!-- Card de Ranking -->
     <div class="ranking">
         <h2>🏆 Ranking</h2>
         <ul id="ranking-list">
-        <!-- preenchido via Js -->
-    </ul>
+            <!-- preenchido via Js -->
+        </ul>
     </div>   
 
-  
-<script src="../JS/Quizzz.js"> </script>
-<script src="../JS/ranking.js" defer></script>
-<script src="../Tema/Tema.js" defer></script>
+    <footer><img src="/projeto_quiz_frontend/imagens/estereg.gif" alt="" srcset=""></footer>
+    <script src="../JS/Quizzz.js"></script>
+    <script src="../JS/ranking.js" defer></script>
+    <script src="../Tema/Tema.js" defer></script>
 </body>
 </html>

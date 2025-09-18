@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       const li = document.createElement("li");
       li.classList.add("ranking-item");
 
-      const pontuacaoFinal = usuario.total_acertos * 10;
+      const pontuacaoFinal = usuario.total_acertos * 1;
 
       const nomeSpan = document.createElement("span");
       nomeSpan.classList.add("nome-container");

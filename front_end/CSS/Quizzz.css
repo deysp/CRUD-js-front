@@ -15,7 +15,7 @@ body {
   background-position: center;  
   background-repeat: no-repeat; 
   height: 100vh;                /* ocupa a tela toda */
-  font-family: Arial, sans-serif;
+    font-family: 'Open Sans', Arial, sans-serif;
 }
 
 .title {
@@ -66,12 +66,13 @@ body {
 #opcoes input[type="radio"]:checked::before {
     content: '';
     position: absolute;
-    top: 4px;
-    left: 4px;
-    width: 8px;
-    height: 8px;
-    background-color: white;
-    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* centraliza perfeitamente */
+    width: 12px;                 /* tamanho do círculo interno */
+    height: 12px;
+    background-color: white;     /* cor da bolinha */
+    border-radius: 50%;          /* mantém circular */
 }
 
 #quiz {
@@ -84,7 +85,8 @@ body {
     color: #ffffff;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
     font-size: 18px;      
-    line-height: 1.6;       
+    line-height: 1.6;    
+     position: relative;   
 }
 
 h1 {
@@ -232,6 +234,7 @@ display: none;
   flex-direction: column;
   justify-content: center;
   align-items: left;
+    font-family: 'Open Sans', Arial, sans-serif;
   gap: 2px;
   font-size: 14px;
   padding: 6px;
@@ -276,4 +279,66 @@ display: none;
   line-height: 1.5;
   max-width: 600px;
   text-shadow: 1px 1px 3px rgba(0,0,0,0.25);
+}
+
+
+.quiz-buttons {
+  display: flex;
+  justify-content: space-between; /* um em cada canto */
+  align-items: center;
+  margin-top: 45px;
+}
+
+#voltar, #proximo {
+  width: 80px;              /* botões menores */
+  font-size: 24px;          /* aumenta a seta */
+  padding: 5px;
+  background: linear-gradient(135deg, #5cb6f9, #5cb6f9);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  position: absolute;
+  bottom: 5px;             /* distância do fundo */
+}
+
+#voltar {
+  left: 30px;   /* 🔹 ajusta a distância do canto esquerdo */
+}
+
+#proximo {
+  right: 30px;  /* 🔹 ajusta a distância do canto direito */
+}
+
+#voltar:hover, #proximo:hover {
+  background: linear-gradient(135deg, #2baaff, #4164ff);
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+}
+
+#reiniciar {
+  width: 200px;
+  margin: 2px auto 0 auto; /* centralizado */
+  display: block;
+}
+
+.material-symbols-outlined {
+  font-size: 32px;      /* tamanho do ícone dentro do botão */
+  font-weight: bold;
+  margin-top: 5px;
+  line-height: 1;
+}
+
+footer {
+    position: fixed;       /* fixa na parte inferior da tela */
+    bottom: 0;             /* encosta no rodapé */
+    width: 100%;           /* ocupa toda a largura */
+    text-align: center;    /* centraliza a imagem */
+    z-index: 50;           /* abaixo de elementos principais */
+}
+
+footer img {
+    width: 30px;           /* reduz ao máximo */
+    height: auto;          /* mantém proporção */
+    margin-bottom: 5px;    /* pequeno espaço do fim da tela */
 }

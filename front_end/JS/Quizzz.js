@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", loadQuestion);
 const questao = document.querySelector("#questao");
 const opcoes = document.querySelector("#opcoes");
 const proxima = document.querySelector("#proximo");
+const voltar = document.querySelector("#voltar");
 const mensagem = document.querySelector("#mensagem");
 const contador = document.querySelector("#contador");
 const acertosSpan = document.querySelector("#acertos");
@@ -12,19 +13,21 @@ const ranking = document.querySelector(".ranking");
 let acertos = 0;
 let contadorQuestoes = 0;
 const limiteQuestoes = 10;
-let questoesAnteriores = []; // guarda os IDs das questões já usadas
-let questaoAtualGlobal = null; // guarda a questão atual exibida
+let questoesAnteriores = [];
+let questaoAtualGlobal = null;
 let idUser = localStorage.getItem("id_user") || 0;
-let respostasUsuario = []; // armazena todas as respostas até o final
+let respostasUsuario = [];
 
-// Função para não repetir questões
+// histórico de questões
+let historicoQuestoes = [];
+let indiceAtual = -1;
+
 function naoRepetirQuestoes(questaoAtual, questoesAnteriores) {
   return !questoesAnteriores.includes(questaoAtual.id_quest);
 }
 
-// Função para carregar a próxima questão
-async function loadQuestion() {
-  if (contadorQuestoes >= limiteQuestoes) {
+async function loadQuestion(avancar = true) {
+  if (contadorQuestoes >= limiteQuestoes && avancar) {
     try {
       const resposta = await fetch("http://localhost:3000/perguntas/correcao", {
         method: "POST",
@@ -40,6 +43,7 @@ async function loadQuestion() {
       // Esconde partes do quiz
       proxima.disabled = true;
       proxima.style.display = "none";
+      voltar.style.display = "none";
       opcoes.style.display = "none";
       contador.style.display = "none";
       questao.style.display = "none";
@@ -65,11 +69,6 @@ async function loadQuestion() {
       reiniciar.style.display = "block";
       ranking.style.display = "flex";
 
-      // Exibir ranking dentro do card azul
-      const rankingSection = document.getElementById("ranking-section");
-      rankingSection.style.display = "block";
-
-      // Chama a função do outro script (ranking.js)
       if (typeof carregarAcertos === "function") {
         carregarAcertos();
       }
@@ -86,44 +85,60 @@ async function loadQuestion() {
   try {
     reiniciar.style.display = "none";
 
-    const resposta = await fetch("http://localhost:3000/perguntas");
-    const questaoAtual = await resposta.json();
+    if (avancar) {
+      const resposta = await fetch("http://localhost:3000/perguntas");
+      const questaoAtual = await resposta.json();
 
-    // escolher uma questão aleatória que ainda não foi usada
-    let questoesValidas = questaoAtual.filter((q) =>
-      naoRepetirQuestoes(q, questoesAnteriores)
-    );
+      let questoesValidas = questaoAtual.filter((q) =>
+        naoRepetirQuestoes(q, questoesAnteriores)
+      );
 
-    // escolhe uma questão aleatória dentre as válidas
-    const questoes =
-      questoesValidas[Math.floor(Math.random() * questoesValidas.length)];
+      const questoes =
+        questoesValidas[Math.floor(Math.random() * questoesValidas.length)];
 
-    // salvar a questão atual globalmente
-    questaoAtualGlobal = questoes;
+      questaoAtualGlobal = questoes;
 
-    // salvar o ID da questão já usada
-    questoesAnteriores.push(questoes.id_quest);
+      questoesAnteriores.push(questoes.id_quest);
 
-    questao.innerText = questoes.enunciado;
-    contadorQuestoes++;
+      historicoQuestoes.push({ questao: questoes, resposta: null });
+      indiceAtual++;
+
+      contadorQuestoes++;
+    } else {
+      if (indiceAtual > 0) {
+        indiceAtual--;
+        questaoAtualGlobal = historicoQuestoes[indiceAtual].questao;
+        contadorQuestoes--;
+      }
+    }
+
+    questao.innerText = questaoAtualGlobal.enunciado;
     contador.innerText = `Questão ${contadorQuestoes} de ${limiteQuestoes}`;
 
     opcoes.innerHTML = `
-      <label><input type="radio" name="resposta" value="alt_a">A) ${questoes.alt_a}</label><br>
-      <label><input type="radio" name="resposta" value="alt_b">B) ${questoes.alt_b}</label><br>
-      <label><input type="radio" name="resposta" value="alt_c">C) ${questoes.alt_c}</label><br>
-      <label><input type="radio" name="resposta" value="alt_d">D) ${questoes.alt_d}</label><br>
-      <label><input type="radio" name="resposta" value="alt_e">E) ${questoes.alt_e}</label><br>
+      <label><input type="radio" name="resposta" value="alt_a">A) ${questaoAtualGlobal.alt_a}</label><br>
+      <label><input type="radio" name="resposta" value="alt_b">B) ${questaoAtualGlobal.alt_b}</label><br>
+      <label><input type="radio" name="resposta" value="alt_c">C) ${questaoAtualGlobal.alt_c}</label><br>
+      <label><input type="radio" name="resposta" value="alt_d">D) ${questaoAtualGlobal.alt_d}</label><br>
+      <label><input type="radio" name="resposta" value="alt_e">E) ${questaoAtualGlobal.alt_e}</label><br>
     `;
 
+    const respostaSalva = historicoQuestoes[indiceAtual].resposta;
+    if (respostaSalva) {
+      const input = document.querySelector(
+        `input[name="resposta"][value="${respostaSalva}"]`
+      );
+      if (input) input.checked = true;
+    }
+
     mensagem.innerHTML = "";
+    voltar.style.display = indiceAtual > 0 ? "block" : "none";
   } catch (error) {
     console.error("Erro ao carregar a questão:", error);
     questao.innerText = "Erro ao carregar a questão.";
   }
 }
 
-// Função para verificar a resposta selecionada e armazenar no array
 function verificarResposta() {
   const opcoesMarcadas = document.querySelector(
     'input[name="resposta"]:checked'
@@ -135,9 +150,10 @@ function verificarResposta() {
     return false;
   }
 
-  const respostaSelecionada = opcoesMarcadas.value.split("_")[1]; // extrai apenas a letra da resposta
+  const respostaSelecionada = opcoesMarcadas.value.split("_")[1];
 
-  // Armazena no array de respostas do usuário
+  historicoQuestoes[indiceAtual].resposta = opcoesMarcadas.value;
+
   respostasUsuario.push({
     id_quest: questaoAtualGlobal.id_quest,
     resposta: respostaSelecionada,
@@ -146,17 +162,20 @@ function verificarResposta() {
   return true;
 }
 
-// Botão de próxima questão
 proxima.addEventListener("click", async (event) => {
   event.preventDefault();
   const Respondida = verificarResposta();
   if (!Respondida) {
     return;
   }
-  loadQuestion();
+  loadQuestion(true);
 });
 
-// Botão de reiniciar
+voltar.addEventListener("click", (event) => {
+  event.preventDefault();
+  loadQuestion(false);
+});
+
 reiniciar.addEventListener("click", (event) => {
   window.location.reload();
   event.preventDefault();
@@ -164,4 +183,6 @@ reiniciar.addEventListener("click", (event) => {
   contadorQuestoes = 0;
   questoesAnteriores = [];
   respostasUsuario = [];
+  historicoQuestoes = [];
+  indiceAtual = -1;
 });

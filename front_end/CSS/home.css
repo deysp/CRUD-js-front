@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
 
 * {
   margin: 0;
@@ -10,9 +9,10 @@ body {
   height: 100vh;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(135deg, #5cb6f9, #f5f5f5);
+  /* Degradê atualizado para a paleta azul usada no projeto */
+  background: linear-gradient(135deg, #2baaff, #4164ff);
   color: #fff;
-  font-family: 'Fredoka One', cursive;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 /* ================== HEADER ================== */
@@ -27,7 +27,7 @@ header {
 .btn {
   text-decoration: none;
   background: #fff;
-  color: #6a11cb;
+  color: #1c90d4;
   padding: 10px 22px;
   border-radius: 30px;
   font-weight: bold;
@@ -36,7 +36,7 @@ header {
 }
 
 .btn:hover {
-  background: #ff4081;
+  background: #005f99;
   color: #fff;
   transform: translateY(-2px);
   box-shadow: 0 6px 15px rgba(0,0,0,0.25);
@@ -56,17 +56,18 @@ main {
   font-size: 64px;
   line-height: 1.2;
   text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+  color: #f5f5f5;
 }
 
 /* ================== RANKING CARD ================== */
 .ranking {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(0, 95, 153, 0.85); /* azul consistente */
   backdrop-filter: blur(12px);
   color: #fff;
   border-radius: 20px;
   padding: 25px;
-  width: 300px; /* Aumentei o card um pouco para acomodar melhor os itens */
-  min-height: 450px; /* Aumentei a altura mínima para garantir que a lista de ranking tenha espaço */
+  width: 300px;
+  min-height: 450px;
   box-shadow: 0px 8px 25px rgba(0,0,0,0.25);
   display: flex;
   flex-direction: column;
@@ -87,7 +88,7 @@ main {
 
 #ranking-list li {
   display: flex;
-  flex-direction: column; /* nome em cima, pontos embaixo */
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 6px;
@@ -99,7 +100,6 @@ main {
   text-align: center;
 }
 
-/* hover nos itens */
 #ranking-list li:hover {
   background: rgba(255, 255, 255, 0.12);
   transform: translateY(-2px);
@@ -119,7 +119,7 @@ main {
   margin-top: 5px;
   min-width: 180px;
   text-align: center;
-  color: #fff; /* fica branco igual ao resto do texto */
+  color: #fff;
 }
 
 /* Apenas o número dourado */
@@ -128,11 +128,12 @@ main {
   color: #FFD700;
   margin-left: 4px;
 }
+
 .subtitle {
   font-size: 18px;
   margin-top: 12px;
   color: #f5f5f5;
   line-height: 1.5;
-  max-width: 600px; /* não deixar o texto muito largo */
+  max-width: 600px;
   text-shadow: 1px 1px 3px rgba(0,0,0,0.25);
 }
