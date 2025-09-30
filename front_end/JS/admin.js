@@ -1,58 +1,41 @@
-document.addEventListener("DOMContentLoaded", loadQuestions);
+document.addEventListener("DOMContentLoaded", loadProdutos);
 
 const botao = document.querySelector("#cadastrar");
 botao.addEventListener("click", async function (event) {
   event.preventDefault();
 
-  const enunciado = document.querySelector("#enunciado").value.trim();
-  const alternativa_a = document.querySelector("#alternativa_a").value.trim();
-  const alternativa_b = document.querySelector("#alternativa_b").value.trim();
-  const alternativa_c = document.querySelector("#alternativa_c").value.trim();
-  const alternativa_d = document.querySelector("#alternativa_d").value.trim();
-  const alternativa_e = document.querySelector("#alternativa_e").value.trim();
-  const correta = document.querySelector("#Correta").value.trim().toLowerCase();
+  const nome = document.querySelector("#enunciado").value.trim();
+  const preco = document.querySelector("#alternativa_a").value.trim();
+  const quantidade = document.querySelector("#alternativa_b").value.trim();
+  const categoria = document.querySelector("#alternativa_c").value.trim();
 
   // Verifica se todos os campos estão preenchidos
-  if (
-    !enunciado ||
-    !alternativa_a ||
-    !alternativa_b ||
-    !alternativa_c ||
-    !alternativa_d ||
-    !alternativa_e ||
-    !correta
-  ) {
+  if (!nome || !preco || !quantidade || !categoria) {
     alert("Todos os campos são obrigatórios");
     return;
   }
 
-
-
   try {
-    const res = await fetch("http://localhost:3000/perguntas", {
+    const res = await fetch("http://localhost:3000/produtos", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        enunciado,
-        alt_a: alternativa_a,
-        alt_b: alternativa_b,
-        alt_c: alternativa_c,
-        alt_d: alternativa_d,
-        alt_e: alternativa_e,
-        correta,
-        imagem: null,
+        nome,
+        preco,
+        quantidade,
+        categoria,
       }),
     });
 
     const data = await res.json();
 
     if (res.status === 201) {
-      alert("Questão adicionada com sucesso");
-      await loadQuestions();
+      alert("Produto cadastrado com sucesso!");
+      await loadProdutos();
       document.querySelector("form").reset();
     } else if (res.status === 409) {
-      alert(data || "A questão já existe");
-      await loadQuestions();
+      alert(data || "Esse produto já existe");
+      await loadProdutos();
     } else if (res.status === 400) {
       alert(data || "Dados incompletos");
     } else if (res.status === 500) {
@@ -67,61 +50,46 @@ botao.addEventListener("click", async function (event) {
   }
 });
 
-
-//*Carregar questões
-async function loadQuestions() {
-  const questionList = document.getElementById("questionList");
-  questionList.innerHTML = "";
+//* Carregar produtos
+async function loadProdutos() {
+  const lista = document.getElementById("produtoList");
+  lista.innerHTML = "";
 
   try {
-    const response = await fetch("http://localhost:3000/perguntas");
-    const questions = await response.json();
+    const response = await fetch("http://localhost:3000/produtos");
+    const produtos = await response.json();
 
-    questions.forEach((questoes) => {
-      addQuestionToPage(questoes);
+    produtos.forEach((produto) => {
+      addProdutoToPage(produto);
     });
   } catch (error) {
-    console.error("Erro ao carregar perguntas:", error);
+    console.error("Erro ao carregar produtos:", error);
   }
 }
 
-//* Cards
-async function addQuestionToPage(questoes) {
-  const questionList = document.getElementById("questionList");
+//* Criar card do produto
+function addProdutoToPage(produto) {
+  const lista = document.getElementById("produtoList");
 
   const card = document.createElement("div");
   card.classList.add("card");
 
   const hiddenIdInput = document.createElement("input");
   hiddenIdInput.type = "hidden";
-  hiddenIdInput.value = questoes.id_quest;
-  hiddenIdInput.classList.add("question-id");
+  hiddenIdInput.value = produto.id_produtos;
+  hiddenIdInput.classList.add("produto-id");
 
-  const questionTitle = document.createElement("h3");
-  questionTitle.classList.add("card-title");
-  questionTitle.innerText = `Pergunta: ${questoes.enunciado}`;
+  const title = document.createElement("h3");
+  title.classList.add("card-title");
+  title.innerText = `Produto: ${produto.nome}`;
 
-  const alternatives = document.createElement("ul");
-  alternatives.classList.add("card-alternatives");
-  alternatives.innerHTML = `
-    <li>A: ${questoes.alt_a}</li>
-    <li>B: ${questoes.alt_b}</li>
-    <li>C: ${questoes.alt_c}</li>
-    <li>D: ${questoes.alt_d}</li>
-    <li>E: ${questoes.alt_e}</li>
+  const details = document.createElement("ul");
+  details.classList.add("card-details");
+  details.innerHTML = `
+    <li>Preço: R$ ${produto.preco}</li>
+    <li>Quantidade: ${produto.quantidade}</li>
+    <li>Categoria: ${produto.categoria}</li>
   `;
-
-  let textoCorreto = "";
-  if (questoes.correta === "a") textoCorreto = questoes.alt_a;
-  else if (questoes.correta === "b") textoCorreto = questoes.alt_b;
-  else if (questoes.correta === "c") textoCorreto = questoes.alt_c;
-  else if (questoes.correta === "d") textoCorreto = questoes.alt_d;
-  else if (questoes.correta === "e") textoCorreto = questoes.alt_e;
-  else textoCorreto = "Alternativa inválida";
-
-  const correctAnswer = document.createElement("p");
-  correctAnswer.classList.add("card-correct-answer");
-  correctAnswer.innerText = `Resposta correta: ${textoCorreto}`;
 
   const deleteButton = document.createElement("button");
   deleteButton.innerText = "Excluir";
@@ -129,14 +97,14 @@ async function addQuestionToPage(questoes) {
   deleteButton.addEventListener("click", async () => {
     try {
       const response = await fetch(
-        `http://localhost:3000/perguntas/${questoes.id_quest}`,
+        `http://localhost:3000/produtos/${produto.id_produtos}`,
         { method: "DELETE" }
       );
       if (response.ok) {
-        alert("Pergunta excluída");
+        alert("Produto excluído");
         card.remove();
       } else {
-        alert("Erro ao deletar a pergunta.");
+        alert("Erro ao deletar o produto.");
       }
     } catch (error) {
       console.error("Erro na exclusão:", error);
@@ -150,51 +118,36 @@ async function addQuestionToPage(questoes) {
   editbutton.addEventListener("click", () => {
     const modal = document.getElementById("modal-editar");
 
-    document.getElementById("edit-enunciado").value = questoes.enunciado;
-    document.getElementById("edit-a").value = questoes.alt_a;
-    document.getElementById("edit-b").value = questoes.alt_b;
-    document.getElementById("edit-c").value = questoes.alt_c;
-    document.getElementById("edit-d").value = questoes.alt_d;
-    document.getElementById("edit-e").value = questoes.alt_e;
-    document.getElementById("edit-correta").value = questoes.correta;
+    document.getElementById("edit-nome").value = produto.nome;
+    document.getElementById("edit-preco").value = produto.preco;
+    document.getElementById("edit-quantidade").value = produto.quantidade;
+    document.getElementById("edit-categoria").value = produto.categoria;
 
     document
       .getElementById("salvar-edicao")
-      .setAttribute("data-id", questoes.id_quest);
+      .setAttribute("data-id", produto.id_produtos);
 
     modal.showModal();
   });
 
-  card.append(
-    questionTitle,
-    hiddenIdInput,
-    alternatives,
-    correctAnswer,
-    deleteButton,
-    editbutton
-  );
-  questionList.appendChild(card);
+  card.append(title, hiddenIdInput, details, deleteButton, editbutton);
+  lista.appendChild(card);
 }
 
-//* Modal
+//* Modal edição
 document.getElementById("salvar-edicao").addEventListener("click", async (event) => {
-  const id_quest = event.target.getAttribute("data-id");
+  const id_produtos = event.target.getAttribute("data-id");
 
   const atualizacao = {
-    newEnunciado: document.getElementById("edit-enunciado").value.trim(),
-    alt_a: document.getElementById("edit-a").value.trim(),
-    alt_b: document.getElementById("edit-b").value.trim(),
-    alt_c: document.getElementById("edit-c").value.trim(),
-    alt_d: document.getElementById("edit-d").value.trim(),
-    alt_e: document.getElementById("edit-e").value.trim(),
-    correta: document.getElementById("edit-correta").value.trim().toLowerCase(),
+    nome: document.getElementById("edit-nome").value.trim(),
+    preco: document.getElementById("edit-preco").value.trim(),
+    quantidade: document.getElementById("edit-quantidade").value.trim(),
+    categoria: document.getElementById("edit-categoria").value.trim(),
   };
-
-  console.log(atualizacao)
 
   try {
     const response = await fetch(
-      `http://localhost:3000/perguntas/${id_quest}`,
+      `http://localhost:3000/produtos/${id_produtos}`,
       {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -202,16 +155,19 @@ document.getElementById("salvar-edicao").addEventListener("click", async (event)
       }
     );
 
-    if (response.status === 204) {
-      alert("Editado com sucesso!");
-      loadQuestions();
-    } else if (response.status === 409) {
-      alert("Já existe uma pergunta com esse enunciado ou valor da alternativa incorreta.");
-    } else if (response.status === 400) {
-      alert("Todos os campos são obrigatórios.");
-    } else {
-      alert("Erro ao editar.");
-    }
+   if (response.ok) {
+  alert("Produto editado com sucesso!");
+  await loadProdutos();
+} else if (response.status === 409) {
+  alert("Já existe um produto com esse nome.");
+} else if (response.status === 400) {
+  alert("Todos os campos são obrigatórios.");
+} else if (response.status === 404) {
+  alert("Produto não encontrado.");
+} else {
+  alert("Erro ao editar.");
+}
+
   } catch (error) {
     console.log("Erro ao Editar", error);
     alert("Erro na comunicação com o servidor.");

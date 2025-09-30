@@ -335,7 +335,7 @@ main[role="main"] {
   max-width: 20px;
 }
 
-#questionList {
+#produtoList {
   display: grid;
   grid-template-columns: repeat(4, 300px); /* 4 colunas com 300px cada (igual ao .card) */
   gap: 1.5rem;                              /* espaço entre os cards */
@@ -372,22 +372,17 @@ main[role="main"] {
   color: #333;
   margin-bottom: 0.5rem;
 }
-.card-alternatives {
+.card-details {
   list-style-type: none;
   padding: 0;
   margin: 0;
 }
-.card-alternatives li {
+.card-details li {
   font-size: 1rem;
   padding: 0.25rem 0;
   color: #555;
 }
-.card-correct-answer {
-  font-size: 1rem;
-  font-weight: bold;
-  color: green;
-  margin-top: 1rem;
-}
+
 
 .delete-button,
 .edit-button {
