@@ -3,25 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Página do adm</title>
-  <link rel="stylesheet" href="../CSS/admin.css" />
-  <link rel="stylesheet" href="../Tema/Tema.css" />
+  <link rel="stylesheet" href="../CSS/simluado.css" />
 </head>
 <body>
   <header role="banner">
-    <div class="logo-container">
-      <img src="../../imagens/icone.png" alt="Ícone Quiz" class="logo" />
-    </div>
-    <h1>Quiz-Administrativo</h1>
-    <ul class="utilities">
-      <br />
-      <li class="logout warn"><a href="../HTML/NovoCadastro.html">Sair</a></li>
-    </ul>
   </header>
-
   <main role="main">
     <section class="painel importante">
-      <h2>Mercadorias do seu zé</h2><br>
+      <h2>Mercado</h2><br>
       <form method="post">
         <div class="doistercos">
           <p>Produto:</p>
@@ -30,11 +19,11 @@
           <div class="cima">  
           <section id="conteudo"><br>
             <p>Preço:</p>
-            <input type="text" placeholder="Digite as alternativas aqui..." name="alternativas" id="alternativa_a" size="40" maxlength="100" /><br>
+            <input type="text"  name="alternativas" id="alternativa_a" size="40" maxlength="100" /><br>
             <p>Quantidade:</p>
-            <input type="number" placeholder="Digite as alternativas aqui..." name="alternativas" id="alternativa_b" size="40" maxlength="100" /><br>
+            <input type="number"  name="alternativas" id="alternativa_b" size="40" maxlength="100" /><br>
             <p>Categoria:</p>
-            <input type="text" placeholder="Digite as alternativas aqui..." name="alternativas" id="alternativa_c" size="40" maxlength="100" /><br>
+            <input type="text" name="alternativas" id="alternativa_c" size="40" maxlength="100" /><br>
           </section>
           </div>
           
@@ -49,10 +38,9 @@
       <h2>Mercadorias Disponíveis</h2>
     </section>
     <div id="produtoList">
-      <!-- As perguntas serão carregadas aqui dinamicamente -->
+
     </div>
 
-    <!-- ✅ Modal de Edição -->
     <dialog id="modal-editar">
       <form method="dialog" id="form-editar">
         <h2>Editar Produto</h2>
@@ -60,15 +48,13 @@
         <input type="text" id="edit-preco" placeholder="Preço" /><br>
         <input type ="text" id="edit-quantidade" placeholder="Quantidade" /><br>
         <input type="text" id="edit-categoria" placeholder="Categoria" /><br>
-       
-        <!-- 🔧 Corrigido ID do botão -->
+
         <button id="salvar-edicao" type="button">Salvar</button>
         <button class="close-modal" type="button">Fechar</button>
       </form>
     </dialog>
   </main>
 
-  <script src="../JS/admin.js"></script>
-  <script src="../Tema/Tema.js" defer></script>
+  <script src="../JS/simulado.js"></script>
 </body>
 </html>

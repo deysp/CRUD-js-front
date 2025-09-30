@@ -155,7 +155,7 @@ document.getElementById("salvar-edicao").addEventListener("click", async (event)
       }
     );
 
-   if (response.ok) {
+    if (response.ok) {
   alert("Produto editado com sucesso!");
   await loadProdutos();
 } else if (response.status === 409) {
